@@ -31,6 +31,9 @@ public class TileGeneration : MonoBehaviour
     [SerializeField]
     private float mapScale;
 
+    [SerializeField]
+    private float heightMultiplier = 4;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,6 +42,7 @@ public class TileGeneration : MonoBehaviour
 
     void GenerateTile()
     {
+
         // Calculate tile depth and width based on the mesh vertices
         Vector3[] meshVertices = this.meshFilter.mesh.vertices;
         int tileDepth = (int)Mathf.Sqrt(meshVertices.Length);
@@ -51,6 +55,8 @@ public class TileGeneration : MonoBehaviour
         Texture2D tileTexture = BuildTexture(heightMap);
 
         this.tileRenderer.material.mainTexture = tileTexture;
+
+        UpdateMeshVertices(heightMap);
     }
 
     private Texture2D BuildTexture(float[,] heightMap)
@@ -96,5 +102,35 @@ public class TileGeneration : MonoBehaviour
             }
         }
         return terrainTypes[terrainTypes.Length - 1];
+    }
+
+    private void UpdateMeshVertices(float[,] heightMap)
+    {
+        int tileDepth = heightMap.GetLength(0);
+        int tileWidth = heightMap.GetLength(1);
+
+        Vector3[] meshVertices = this.meshFilter.mesh.vertices;
+
+        // Iterate through all the heightMap coordinates, updating the vertex index
+        int vertexIndex = 0;
+        for (int zIndex = 0; zIndex < tileDepth; zIndex++)
+        {
+            for (int xIndex = 0; xIndex < tileWidth; xIndex++)
+            {
+                float height = heightMap[zIndex, xIndex];
+                Vector3 vertex = meshVertices[vertexIndex];
+
+                // Change the vertex Y coordinate, proportional to the height value
+                meshVertices[vertexIndex] = new Vector3(vertex.x, height * this.heightMultiplier, vertex.z);
+                vertexIndex++;
+            }
+        }
+
+        // Update the vertices in the mesh and update its properties
+        this.meshFilter.mesh.vertices = meshVertices;
+        this.meshFilter.mesh.RecalculateBounds();
+        this.meshFilter.mesh.RecalculateNormals();
+        // Update the mesh collider
+        this.meshCollider.sharedMesh = this.meshFilter.mesh;
     }
 }
