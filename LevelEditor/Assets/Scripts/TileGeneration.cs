@@ -2,8 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class TerrainType
+{
+    public string name;
+    public float height;
+    public Color color;
+}
+
 public class TileGeneration : MonoBehaviour
 {
+
+    [SerializeField]
+    private TerrainType[] terrainTypes;
 
     [SerializeField]
     NoiseMapGeneration noiseMapGeneration;
@@ -56,8 +67,12 @@ public class TileGeneration : MonoBehaviour
                 // Transform the 2D Map index in an Array index
                 int colorIndex = zIndex * tileWidth + xIndex;
                 float height = heightMap[zIndex, xIndex];
+
+                // Choose a terrain type according to its height value
+                TerrainType terrainType = ChooseTerrainType(height);
+
                 // Assign as color a shade of grey proportional to the height value
-                colorMap[colorIndex] = Color.Lerp(Color.black, Color.white, height);
+                colorMap[colorIndex] = terrainType.color;
             }
         }
         // Create a new texture and set its pixel colors
@@ -67,5 +82,19 @@ public class TileGeneration : MonoBehaviour
         tileTexture.Apply();
 
         return tileTexture;
+    }
+
+    TerrainType ChooseTerrainType(float height)
+    {
+        // For each terrain type, check if the height is lower than the other terrain type
+        foreach(TerrainType terrainType in terrainTypes)
+        {
+            if (height < terrainType.height)
+            {
+                // Return the first one
+                return terrainType;
+            }
+        }
+        return terrainTypes[terrainTypes.Length - 1];
     }
 }
