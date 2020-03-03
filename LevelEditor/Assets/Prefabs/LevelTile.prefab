@@ -119,6 +119,16 @@ MonoBehaviour:
   - name: MountainTop
     height: 1
     color: {r: 1, g: 1, b: 1, a: 0}
+  waves:
+  - seed: 5000
+    frequency: 1
+    amplitude: 1
+  - seed: 9000
+    frequency: 0.5
+    amplitude: 2
+  - seed: 6700
+    frequency: 0.25
+    amplitude: 4
   noiseMapGeneration: {fileID: 7637499387882056786}
   tileRenderer: {fileID: 7637499387882056797}
   meshFilter: {fileID: 7637499387882056798}
