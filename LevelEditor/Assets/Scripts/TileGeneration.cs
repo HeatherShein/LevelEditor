@@ -32,7 +32,10 @@ public class TileGeneration : MonoBehaviour
     private float mapScale;
 
     [SerializeField]
-    private float heightMultiplier = 4;
+    private float heightMultiplier;
+
+    [SerializeField]
+    private AnimationCurve heightCurve;
 
     // Start is called before the first frame update
     void Start()
@@ -121,7 +124,7 @@ public class TileGeneration : MonoBehaviour
                 Vector3 vertex = meshVertices[vertexIndex];
 
                 // Change the vertex Y coordinate, proportional to the height value
-                meshVertices[vertexIndex] = new Vector3(vertex.x, height * this.heightMultiplier, vertex.z);
+                meshVertices[vertexIndex] = new Vector3(vertex.x, this.heightCurve.Evaluate(height) * this.heightMultiplier, vertex.z);
                 vertexIndex++;
             }
         }
