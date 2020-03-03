@@ -52,9 +52,13 @@ public class TileGeneration : MonoBehaviour
         int tileWidth = tileDepth;
 
         // Calculate the offset based on the tile position
-        float[,] heightMap = this.noiseMapGeneration.GenerateNoiseMap(tileDepth,tileWidth,this.mapScale);
+        float offsetX = -this.gameObject.transform.position.x;
+        float offsetZ = -this.gameObject.transform.position.z;
 
         // Generate a height map using noise
+        float[,] heightMap = this.noiseMapGeneration.GenerateNoiseMap(tileDepth, tileWidth, this.mapScale, offsetX, offsetZ);
+
+        // Build a 2D texture from the height map
         Texture2D tileTexture = BuildTexture(heightMap);
 
         this.tileRenderer.material.mainTexture = tileTexture;
