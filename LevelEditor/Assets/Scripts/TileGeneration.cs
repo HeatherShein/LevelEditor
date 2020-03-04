@@ -2,14 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class TerrainType
-{
-    public string name;
-    public float threshold;
-    public Color color;
-}
-
 public class TileGeneration : MonoBehaviour
 {
     #region Variables
@@ -21,6 +13,9 @@ public class TileGeneration : MonoBehaviour
 
     [SerializeField]
     private VisualizationMode visualizationMode;
+
+    [SerializeField]
+    private Color waterColor;
     #endregion
 
     #region Height
@@ -56,6 +51,24 @@ public class TileGeneration : MonoBehaviour
     private AnimationCurve moistureCurve;
     #endregion
 
+    #region Biomes
+    [SerializeField]
+    private BiomeRow[] biomes;
+
+    [System.Serializable]
+    public class Biome
+    {
+        public string name;
+        public Color color;
+    }
+
+    [System.Serializable]
+    public class BiomeRow
+    {
+        public Biome[] biomes;
+    }
+    #endregion
+
     #region Constants
     [SerializeField]
     NoiseMapGeneration noiseMapGeneration;
@@ -68,6 +81,15 @@ public class TileGeneration : MonoBehaviour
 
     [SerializeField]
     private MeshCollider meshCollider;
+
+    [System.Serializable]
+    public class TerrainType
+    {
+        public string name;
+        public float threshold;
+        public Color color;
+        public int index;
+    }
     #endregion
 
     public void GenerateTile(float centerVertexZ, float maxDistanceZ)
@@ -128,14 +150,22 @@ public class TileGeneration : MonoBehaviour
         }
         #endregion
 
+        #region Textures
         // Build a 2D texture from the height map
-        Texture2D heightTexture = BuildTexture(heightMap, this.heightTerrainTypes);
+        TerrainType[,] chosenHeightTerrainTypes = new TerrainType[tileDepth, tileWidth];
+        Texture2D heightTexture = BuildTexture(heightMap, this.heightTerrainTypes, chosenHeightTerrainTypes);
 
         // Build a 2D texture from the heat map
-        Texture2D heatTexture = BuildTexture(heatMap, this.heatTerrainTypes);
+        TerrainType[,] chosenHeatTerrainTypes = new TerrainType[tileDepth, tileWidth];
+        Texture2D heatTexture = BuildTexture(heatMap, this.heatTerrainTypes, chosenHeatTerrainTypes);
 
         // Build a 2D texture from the moisture map
-        Texture2D moistureTexture = BuildTexture(moistureMap, this.moistureTerrainTypes);
+        TerrainType[,] chosenMoistureTerrainTypes = new TerrainType[tileDepth, tileWidth];
+        Texture2D moistureTexture = BuildTexture(moistureMap, this.moistureTerrainTypes, chosenMoistureTerrainTypes);
+
+        // Build a biomes 2D texture from the three other noise variables
+        Texture2D biomeTexture = BuildBiomeTexture(chosenHeightTerrainTypes, chosenHeatTerrainTypes, chosenMoistureTerrainTypes);
+        #endregion
 
         switch (this.visualizationMode)
         {
@@ -150,12 +180,14 @@ public class TileGeneration : MonoBehaviour
             case VisualizationMode.Moisture:
                 this.tileRenderer.material.mainTexture = moistureTexture;
                 break;
+            case VisualizationMode.Biome:
+                this.tileRenderer.material.mainTexture = biomeTexture;
+                break;
         }
-        
         UpdateMeshVertices(heightMap);
     }
 
-    private Texture2D BuildTexture(float[,] map, TerrainType[] terrainTypes)
+    private Texture2D BuildTexture(float[,] map, TerrainType[] terrainTypes, TerrainType[,] chosenTerrainTypes)
     {
         int tileDepth = map.GetLength(0);
         int tileWidth = map.GetLength(1);
@@ -175,6 +207,9 @@ public class TileGeneration : MonoBehaviour
 
                 // Assign as color a shade of grey proportional to the height value
                 colorMap[colorIndex] = terrainType.color;
+
+                // Save the chosen terrain type
+                chosenTerrainTypes[zIndex, xIndex] = terrainType;
             }
         }
         // Create a new texture and set its pixel colors
@@ -198,6 +233,51 @@ public class TileGeneration : MonoBehaviour
             }
         }
         return terrainTypes[terrainTypes.Length - 1];
+    }
+
+    private Texture2D BuildBiomeTexture(TerrainType[,] heightTerrainTypes, TerrainType[,] heatTerrainTypes, TerrainType[,] moistureTerrainTypes)
+    {
+        int tileDepth = heatTerrainTypes.GetLength(0);
+        int tileWidth = heatTerrainTypes.GetLength(1);
+
+        Color[] colorMap = new Color[tileDepth * tileWidth];
+
+        for (int zIndex = 0; zIndex < tileDepth; zIndex++)
+        {
+            for (int xIndex = 0; xIndex < tileWidth; xIndex++)
+            {
+                int colorIndex = zIndex * tileWidth + xIndex;
+
+                TerrainType heightTerrainType = heightTerrainTypes[zIndex, xIndex];
+
+                // Prevent Water region
+                if (heightTerrainType.name != "Water")
+                {
+                    // Get terrain types from heat and moisture
+                    TerrainType heatTerrainType = heatTerrainTypes[zIndex, xIndex];
+                    TerrainType moistureTerrainType = moistureTerrainTypes[zIndex, xIndex];
+
+                    // Use terrain type index to access the biome
+                    Biome biome = this.biomes[moistureTerrainType.index].biomes[heatTerrainType.index];
+                    // Assign color according to the biome
+                    colorMap[colorIndex] = biome.color;
+                } else
+                {
+                    // No biome, just water color
+                    colorMap[colorIndex] = this.waterColor;
+                }
+            }
+        }
+
+        // Create new texture and assign its pixel colors
+
+        Texture2D tileTexture = new Texture2D(tileWidth, tileDepth);
+        tileTexture.filterMode = FilterMode.Point;
+        tileTexture.wrapMode = TextureWrapMode.Clamp;
+        tileTexture.SetPixels(colorMap);
+        tileTexture.Apply();
+        
+        return tileTexture;
     }
 
     private void UpdateMeshVertices(float[,] heightMap)
@@ -232,6 +312,6 @@ public class TileGeneration : MonoBehaviour
 
     enum VisualizationMode
     {
-        Height, Heat, Moisture
+        Height, Heat, Moisture, Biome
     }
 }

@@ -108,20 +108,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapScale: 3
   heightMultiplier: 4
-  visualizationMode: 2
+  visualizationMode: 3
+  waterColor: {r: 0.023529414, g: 0.86274517, b: 0.9333334, a: 0}
   heightTerrainTypes:
   - name: Water
     threshold: 0.3
     color: {r: 0.022027409, g: 0.8618916, b: 0.9339623, a: 0}
+    index: 0
   - name: Grass
     threshold: 0.5
     color: {r: 0.2169672, g: 0.6226415, b: 0.17915626, a: 0}
+    index: 1
   - name: Mountain
     threshold: 0.7
     color: {r: 0.41509432, g: 0.10377358, b: 0.10377358, a: 0}
+    index: 2
   - name: MountainTop
     threshold: 1
     color: {r: 1, g: 1, b: 1, a: 0}
+    index: 3
   heightWaves:
   - seed: 5600
     frequency: 1
@@ -169,15 +174,19 @@ MonoBehaviour:
   - name: VeryHot
     threshold: 0.25
     color: {r: 1, g: 0.0047169924, b: 0.0047169924, a: 0}
+    index: 0
   - name: Hot
     threshold: 0.5
     color: {r: 0.96996236, g: 1, b: 0, a: 0}
+    index: 1
   - name: Cold
     threshold: 0.75
     color: {r: 0, g: 0.3462386, b: 1, a: 0}
+    index: 2
   - name: VeryCold
     threshold: 1
     color: {r: 0, g: 1, b: 0.8844981, a: 0}
+    index: 3
   heatWaves:
   - seed: 5600
     frequency: 1
@@ -222,18 +231,22 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   moistureTerrainTypes:
-  - name: Desert
+  - name: Dryest
     threshold: 0.25
     color: {r: 0.9339623, g: 0.34721917, b: 0, a: 0}
+    index: 0
   - name: Dry
     threshold: 0.5
     color: {r: 0.9997012, g: 1, b: 0.023584902, a: 0}
+    index: 1
   - name: Wet
     threshold: 0.75
     color: {r: 0.022472408, g: 0.9528302, b: 0.66845214, a: 0}
+    index: 2
   - name: ExtremeWet
     threshold: 1
     color: {r: 0, g: 0.079363585, b: 1, a: 0}
+    index: 3
   moistureWaves:
   - seed: 7500
     frequency: 1
@@ -271,6 +284,43 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  biomes:
+  - biomes:
+    - name: Desert
+      color: {r: 0.93450105, g: 1, b: 0, a: 0}
+    - name: GrassLand
+      color: {r: 0.6608964, g: 1, b: 0, a: 0}
+    - name: Tundra
+      color: {r: 1, g: 1, b: 1, a: 0}
+    - name: Tundra
+      color: {r: 1, g: 1, b: 1, a: 0}
+  - biomes:
+    - name: Savanna
+      color: {r: 0.754717, g: 0.5882189, b: 0.18867925, a: 0}
+    - name: Savanna
+      color: {r: 0.75294125, g: 0.5882353, b: 0.18823531, a: 0}
+    - name: BorealForest
+      color: {r: 0.09385012, g: 0.3490566, b: 0.16043155, a: 0}
+    - name: Tundra
+      color: {r: 1, g: 1, b: 1, a: 0}
+  - biomes:
+    - name: TropicalRainForest
+      color: {r: 0.10693307, g: 0.20006087, b: 0.8396226, a: 0}
+    - name: BorealForest
+      color: {r: 0.09411766, g: 0.34901962, b: 0.16078432, a: 0}
+    - name: BorealForest
+      color: {r: 0.09411766, g: 0.34901962, b: 0.16078432, a: 0}
+    - name: Tundra
+      color: {r: 1, g: 1, b: 1, a: 0}
+  - biomes:
+    - name: TropicalRainForest
+      color: {r: 0.10588236, g: 0.20000002, b: 0.83921576, a: 0}
+    - name: TropicalRainForest
+      color: {r: 0.10588236, g: 0.20000002, b: 0.83921576, a: 0}
+    - name: Tundra
+      color: {r: 1, g: 1, b: 1, a: 0}
+    - name: Tundra
+      color: {r: 1, g: 1, b: 1, a: 0}
   noiseMapGeneration: {fileID: 7637499387882056786}
   tileRenderer: {fileID: 7637499387882056797}
   meshFilter: {fileID: 7637499387882056798}
