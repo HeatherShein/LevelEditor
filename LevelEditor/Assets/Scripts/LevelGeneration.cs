@@ -14,6 +14,62 @@ public class LevelGeneration : MonoBehaviour
     [SerializeField]
     private float centerVertexZ, maxDistanceZ;
 
+    [SerializeField]
+    private TreeGeneration treeGeneration;
+
+    [SerializeField]
+    private RiverGeneration riverGeneration;
+
+    public class LevelData
+    {
+        private int tileDepthInVertices, tileWidthInVertices;
+
+        public TileGeneration.TileData[,] tilesData;
+
+        public LevelData(int tileDepthInVertices, int tileWidthInVertices, int mapDepthInTiles, int mapWidthInTiles)
+        {
+            tilesData = new TileGeneration.TileData[tileDepthInVertices * mapDepthInTiles, tileWidthInVertices * mapWidthInTiles];
+
+            this.tileDepthInVertices = tileDepthInVertices;
+            this.tileWidthInVertices = tileWidthInVertices;
+        }
+
+        public void AddTileData(TileGeneration.TileData tileData, int tileZIndex, int tileXIndex)
+        {
+            this.tilesData[tileZIndex, tileXIndex] = tileData;
+        }
+
+        public TileCoordinate ConvertToTileCoordinate(int zIndex, int xIndex)
+        {
+            // Tile is calculated by dividing the index by the number of tiles in that axis
+            int tileZIndex = (int)Mathf.Floor((float)zIndex / (float)this.tileDepthInVertices);
+            int tileXIndex = (int)Mathf.Floor((float)xIndex / (float)this.tileWidthInVertices);
+
+            // Coordinate index is calculated by getting the remainder of the division above plus translating the origin to the bottom left corner
+            int coordinateZIndex = this.tileDepthInVertices - (zIndex % this.tileDepthInVertices) - 1;
+            int coordinateXIndex = this.tileWidthInVertices - (xIndex % this.tileWidthInVertices) - 1;
+
+            TileCoordinate tileCoordinate = new TileCoordinate(tileZIndex, tileXIndex, coordinateZIndex, coordinateXIndex);
+            return tileCoordinate;
+        }
+    }
+
+    public class TileCoordinate
+    {
+        public int tileZIndex;
+        public int tileXIndex;
+        public int coordinateZIndex;
+        public int coordinateXIndex;
+
+        public TileCoordinate(int tileZIndex, int tileXIndex, int coordinateZIndex, int coordinateXIndex)
+        {
+            this.tileZIndex = tileZIndex;
+            this.tileXIndex = tileXIndex;
+            this.coordinateZIndex = coordinateZIndex;
+            this.coordinateXIndex = coordinateXIndex;
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +83,16 @@ public class LevelGeneration : MonoBehaviour
         int tileWidth = (int)tileSize.x;
         int tileDepth = (int)tileSize.z;
 
+        // Calculate the number of vertices of the tile in each axis using its mesh
+        Vector3[] tileMeshVertices = tilePrefab.GetComponent<MeshFilter>().sharedMesh.vertices;
+        int tileDepthInVertices = (int)Mathf.Sqrt(tileMeshVertices.Length);
+        int tileWidthInVertices = tileDepthInVertices;
+
+        float distanceBetweenVertices = (float)tileDepth / (float)tileDepthInVertices;
+
+        // Build an empty level data object
+        LevelData levelData = new LevelData(tileDepthInVertices, tileWidthInVertices, this.mapDepthInTiles, this.mapWidthInTiles);
+
         // For each tile, instantiate a tile in the correct position
         for (int xTileIndex = 0; xTileIndex < mapWidthInTiles; xTileIndex++)
         {
@@ -39,8 +105,23 @@ public class LevelGeneration : MonoBehaviour
                 // Instantiate a new tile
                 GameObject tile = Instantiate(tilePrefab, tilePosition, Quaternion.identity) as GameObject;
                 // Generate tile texture
-                tile.GetComponent<TileGeneration>().GenerateTile(this.centerVertexZ, this.maxDistanceZ);
+                TileGeneration.TileData tileData = tile.GetComponent<TileGeneration>().GenerateTile(this.centerVertexZ, this.maxDistanceZ);
+                levelData.AddTileData(tileData, zTileIndex, xTileIndex);
             }
         }
+
+        // Generate trees for the level
+        this.treeGeneration.GenerateTrees(
+            this.mapDepthInTiles * tileDepthInVertices,
+            this.mapWidthInTiles * tileWidthInVertices,
+            distanceBetweenVertices,
+            this.treeGeneration.mapScale,
+            levelData);
+
+        // Generate rivers for the level
+        this.riverGeneration.GenerateRivers(
+            this.mapDepthInTiles * tileDepthInVertices,
+            this.mapWidthInTiles * tileWidthInVertices,
+            levelData);
     }
 }

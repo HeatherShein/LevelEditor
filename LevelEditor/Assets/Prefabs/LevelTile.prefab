@@ -107,8 +107,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapScale: 3
-  heightMultiplier: 4
-  visualizationMode: 3
+  heightMultiplier: 3
+  visualizationMode: 0
   waterColor: {r: 0.023529414, g: 0.86274517, b: 0.9333334, a: 0}
   heightTerrainTypes:
   - name: Water
@@ -288,39 +288,55 @@ MonoBehaviour:
   - biomes:
     - name: Desert
       color: {r: 0.93450105, g: 1, b: 0, a: 0}
+      index: 0
     - name: GrassLand
       color: {r: 0.6608964, g: 1, b: 0, a: 0}
+      index: 1
     - name: Tundra
       color: {r: 1, g: 1, b: 1, a: 0}
+      index: 2
     - name: Tundra
       color: {r: 1, g: 1, b: 1, a: 0}
+      index: 2
   - biomes:
     - name: Savanna
       color: {r: 0.754717, g: 0.5882189, b: 0.18867925, a: 0}
+      index: 1
     - name: Savanna
       color: {r: 0.75294125, g: 0.5882353, b: 0.18823531, a: 0}
+      index: 1
     - name: BorealForest
       color: {r: 0.09385012, g: 0.3490566, b: 0.16043155, a: 0}
+      index: 3
     - name: Tundra
       color: {r: 1, g: 1, b: 1, a: 0}
+      index: 2
   - biomes:
     - name: TropicalRainForest
       color: {r: 0.10693307, g: 0.20006087, b: 0.8396226, a: 0}
+      index: 4
     - name: BorealForest
       color: {r: 0.09411766, g: 0.34901962, b: 0.16078432, a: 0}
+      index: 3
     - name: BorealForest
       color: {r: 0.09411766, g: 0.34901962, b: 0.16078432, a: 0}
+      index: 3
     - name: Tundra
       color: {r: 1, g: 1, b: 1, a: 0}
+      index: 2
   - biomes:
     - name: TropicalRainForest
       color: {r: 0.10588236, g: 0.20000002, b: 0.83921576, a: 0}
+      index: 4
     - name: TropicalRainForest
       color: {r: 0.10588236, g: 0.20000002, b: 0.83921576, a: 0}
+      index: 4
     - name: Tundra
       color: {r: 1, g: 1, b: 1, a: 0}
+      index: 2
     - name: Tundra
       color: {r: 1, g: 1, b: 1, a: 0}
+      index: 2
   noiseMapGeneration: {fileID: 7637499387882056786}
   tileRenderer: {fileID: 7637499387882056797}
   meshFilter: {fileID: 7637499387882056798}

@@ -6,7 +6,7 @@ public class TileGeneration : MonoBehaviour
 {
     #region Variables
     [SerializeField]
-    private float mapScale;
+    public float mapScale;
 
     [SerializeField]
     private float heightMultiplier;
@@ -60,6 +60,7 @@ public class TileGeneration : MonoBehaviour
     {
         public string name;
         public Color color;
+        public int index;
     }
 
     [System.Serializable]
@@ -90,9 +91,43 @@ public class TileGeneration : MonoBehaviour
         public Color color;
         public int index;
     }
+
+    enum VisualizationMode
+    {
+        Height, Heat, Moisture, Biome
+    }
+
+    public class TileData
+    {
+        public float[,] heightMap;
+        public float[,] heatMap;
+        public float[,] moistureMap;
+        public TerrainType[,] chosenHeightTerrainTypes;
+        public TerrainType[,] chosenHeatTerrainTypes;
+        public TerrainType[,] chosenMoistureTerrainTypes;
+        public Biome[,] chosenBiomes;
+        public Mesh mesh;
+        public Texture2D texture;
+
+        public TileData(float[,] heightMap, float[,] heatMap, float[,] moistureMap,
+            TerrainType[,] chosenHeightTerrainTypes, TerrainType[,] chosenHeatTerrainTypes,
+            TerrainType[,] chosenMoistureTerrainTypes, Biome[,] chosenBiomes,
+            Mesh mesh, Texture2D texture)
+        {
+            this.heightMap = heightMap;
+            this.heatMap = heatMap;
+            this.moistureMap = moistureMap;
+            this.chosenHeightTerrainTypes = chosenHeightTerrainTypes;
+            this.chosenHeatTerrainTypes = chosenHeatTerrainTypes;
+            this.chosenMoistureTerrainTypes = chosenMoistureTerrainTypes;
+            this.chosenBiomes = chosenBiomes;
+            this.mesh = mesh;
+            this.texture = texture;
+        }
+    }
     #endregion
 
-    public void GenerateTile(float centerVertexZ, float maxDistanceZ)
+    public TileData GenerateTile(float centerVertexZ, float maxDistanceZ)
     {
         // Calculate tile depth and width based on the mesh vertices
         Vector3[] meshVertices = this.meshFilter.mesh.vertices;
@@ -164,7 +199,11 @@ public class TileGeneration : MonoBehaviour
         Texture2D moistureTexture = BuildTexture(moistureMap, this.moistureTerrainTypes, chosenMoistureTerrainTypes);
 
         // Build a biomes 2D texture from the three other noise variables
-        Texture2D biomeTexture = BuildBiomeTexture(chosenHeightTerrainTypes, chosenHeatTerrainTypes, chosenMoistureTerrainTypes);
+        Biome[,] chosenBiomes = new Biome[tileDepth, tileWidth];
+        Texture2D biomeTexture = BuildBiomeTexture(chosenHeightTerrainTypes, chosenHeatTerrainTypes, chosenMoistureTerrainTypes, chosenBiomes);
+
+        // Texture to pass into the TileData constructor
+        Texture2D texture = new Texture2D(tileWidth,tileDepth);
         #endregion
 
         switch (this.visualizationMode)
@@ -172,19 +211,27 @@ public class TileGeneration : MonoBehaviour
             // Assign material texture to be the heightTexture
             case VisualizationMode.Height:
                 this.tileRenderer.material.mainTexture = heightTexture;
+                texture = heightTexture;
                 break;
             // Assign material texture to be the heatTexture
             case VisualizationMode.Heat:
                 this.tileRenderer.material.mainTexture = heatTexture;
+                texture = heatTexture;
                 break;
             case VisualizationMode.Moisture:
                 this.tileRenderer.material.mainTexture = moistureTexture;
+                texture = moistureTexture;
                 break;
             case VisualizationMode.Biome:
                 this.tileRenderer.material.mainTexture = biomeTexture;
+                texture = biomeTexture;
                 break;
         }
         UpdateMeshVertices(heightMap);
+
+        TileData tileData = new TileData(heightMap,heatMap,moistureMap,chosenHeightTerrainTypes,chosenHeatTerrainTypes,chosenMoistureTerrainTypes,chosenBiomes,this.meshFilter.mesh,texture);
+
+        return tileData;
     }
 
     private Texture2D BuildTexture(float[,] map, TerrainType[] terrainTypes, TerrainType[,] chosenTerrainTypes)
@@ -235,7 +282,7 @@ public class TileGeneration : MonoBehaviour
         return terrainTypes[terrainTypes.Length - 1];
     }
 
-    private Texture2D BuildBiomeTexture(TerrainType[,] heightTerrainTypes, TerrainType[,] heatTerrainTypes, TerrainType[,] moistureTerrainTypes)
+    private Texture2D BuildBiomeTexture(TerrainType[,] heightTerrainTypes, TerrainType[,] heatTerrainTypes, TerrainType[,] moistureTerrainTypes, Biome[,] chosenBiomes)
     {
         int tileDepth = heatTerrainTypes.GetLength(0);
         int tileWidth = heatTerrainTypes.GetLength(1);
@@ -261,6 +308,9 @@ public class TileGeneration : MonoBehaviour
                     Biome biome = this.biomes[moistureTerrainType.index].biomes[heatTerrainType.index];
                     // Assign color according to the biome
                     colorMap[colorIndex] = biome.color;
+
+                    // Save biome
+                    chosenBiomes[zIndex, xIndex] = biome;
                 } else
                 {
                     // No biome, just water color
@@ -308,10 +358,5 @@ public class TileGeneration : MonoBehaviour
         this.meshFilter.mesh.RecalculateNormals();
         // Update the mesh collider
         this.meshCollider.sharedMesh = this.meshFilter.mesh;
-    }
-
-    enum VisualizationMode
-    {
-        Height, Heat, Moisture, Biome
     }
 }

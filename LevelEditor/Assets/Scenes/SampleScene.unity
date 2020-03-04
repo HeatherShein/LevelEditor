@@ -273,6 +273,9 @@ GameObject:
   m_Component:
   - component: {fileID: 658639505}
   - component: {fileID: 658639504}
+  - component: {fileID: 658639506}
+  - component: {fileID: 658639507}
+  - component: {fileID: 658639508}
   m_Layer: 0
   m_Name: Level
   m_TagString: Untagged
@@ -296,8 +299,10 @@ MonoBehaviour:
   mapDepthInTiles: 10
   tilePrefab: {fileID: 7637499387882056785, guid: fa3d76c54b7dd8440b98eb5ad57b9f18,
     type: 3}
-  centerVertexZ: 0
-  maxDistanceZ: 100
+  centerVertexZ: 55
+  maxDistanceZ: 55
+  treeGeneration: {fileID: 658639506}
+  riverGeneration: {fileID: 658639508}
 --- !u!4 &658639505
 Transform:
   m_ObjectHideFlags: 0
@@ -312,3 +317,66 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &658639506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 658639503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39463f226d617e54b8a35abfdf723c0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  noiseMapGeneration: {fileID: 658639507}
+  waves:
+  - seed: 7800
+    frequency: 1
+    amplitude: 1
+  - seed: 6700
+    frequency: 2
+    amplitude: 2
+  - seed: 8700
+    frequency: 4
+    amplitude: 4
+  mapScale: 10
+  neighborRadius:
+  - 3
+  - 3
+  - 3
+  - 1
+  - 1
+  treePrefab:
+  - {fileID: 191266, guid: c44bd9bdc114d4a60932c0087d9d1732, type: 3}
+  - {fileID: 188006, guid: c6b7fb383a3534b039692b5485b6e739, type: 3}
+  - {fileID: 137650, guid: 826b6a0b570e8460990010fa615b5a2a, type: 3}
+  - {fileID: 192044, guid: 19682540d8a014522a319b1cf788aee2, type: 3}
+  - {fileID: 191266, guid: c44bd9bdc114d4a60932c0087d9d1732, type: 3}
+--- !u!114 &658639507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 658639503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a778f341b8adb104eb5b63342ef65238, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &658639508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 658639503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0e15f24bddfd57438235db4e3824333, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nbRivers: 10
+  heightThreshold: 0.6
+  riverColor: {r: 0, g: 1, b: 0.84328103, a: 0}
