@@ -106,6 +106,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d471a2d8cf1fe8a48b1cc3ab3b8bf06a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mapScale: 3
+  heightMultiplier: 4
+  visualizationMode: 2
   heightTerrainTypes:
   - name: Water
     threshold: 0.3
@@ -119,19 +122,6 @@ MonoBehaviour:
   - name: MountainTop
     threshold: 1
     color: {r: 1, g: 1, b: 1, a: 0}
-  heatTerrainTypes:
-  - name: VeryHot
-    threshold: 0.25
-    color: {r: 1, g: 0.0047169924, b: 0.0047169924, a: 0}
-  - name: Hot
-    threshold: 0.5
-    color: {r: 0.96996236, g: 1, b: 0, a: 0}
-  - name: Cold
-    threshold: 0.75
-    color: {r: 0, g: 0.3462386, b: 1, a: 0}
-  - name: VeryCold
-    threshold: 1
-    color: {r: 0, g: 1, b: 0.8844981, a: 0}
   heightWaves:
   - seed: 5600
     frequency: 1
@@ -142,22 +132,6 @@ MonoBehaviour:
   - seed: 6700
     frequency: 0.25
     amplitude: 4
-  heatWaves:
-  - seed: 5600
-    frequency: 1
-    amplitude: 1
-  - seed: 9500
-    frequency: 0.5
-    amplitude: 2
-  - seed: 6700
-    frequency: 0.25
-    amplitude: 4
-  noiseMapGeneration: {fileID: 7637499387882056786}
-  tileRenderer: {fileID: 7637499387882056797}
-  meshFilter: {fileID: 7637499387882056798}
-  meshCollider: {fileID: 7637499387882056796}
-  mapScale: 4
-  heightMultiplier: 4
   heightCurve:
     serializedVersion: 2
     m_Curve:
@@ -191,6 +165,29 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  heatTerrainTypes:
+  - name: VeryHot
+    threshold: 0.25
+    color: {r: 1, g: 0.0047169924, b: 0.0047169924, a: 0}
+  - name: Hot
+    threshold: 0.5
+    color: {r: 0.96996236, g: 1, b: 0, a: 0}
+  - name: Cold
+    threshold: 0.75
+    color: {r: 0, g: 0.3462386, b: 1, a: 0}
+  - name: VeryCold
+    threshold: 1
+    color: {r: 0, g: 1, b: 0.8844981, a: 0}
+  heatWaves:
+  - seed: 5600
+    frequency: 1
+    amplitude: 1
+  - seed: 9500
+    frequency: 0.5
+    amplitude: 2
+  - seed: 6700
+    frequency: 0.25
+    amplitude: 4
   heatCurve:
     serializedVersion: 2
     m_Curve:
@@ -204,7 +201,7 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.097168
+      time: 0.40364078
       value: -0.0017699748
       inSlope: 0.002359801
       outSlope: 0.002359801
@@ -224,7 +221,60 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  visualizationMode: 1
+  moistureTerrainTypes:
+  - name: Desert
+    threshold: 0.25
+    color: {r: 0.9339623, g: 0.34721917, b: 0, a: 0}
+  - name: Dry
+    threshold: 0.5
+    color: {r: 0.9997012, g: 1, b: 0.023584902, a: 0}
+  - name: Wet
+    threshold: 0.75
+    color: {r: 0.022472408, g: 0.9528302, b: 0.66845214, a: 0}
+  - name: ExtremeWet
+    threshold: 1
+    color: {r: 0, g: 0.079363585, b: 1, a: 0}
+  moistureWaves:
+  - seed: 7500
+    frequency: 1
+    amplitude: 1
+  moistureCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: -0.0019226074
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.39848125
+      value: 0.003494963
+      inSlope: 0.06644812
+      outSlope: 0.06644812
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.13199332
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0.9980774
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  noiseMapGeneration: {fileID: 7637499387882056786}
+  tileRenderer: {fileID: 7637499387882056797}
+  meshFilter: {fileID: 7637499387882056798}
+  meshCollider: {fileID: 7637499387882056796}
 --- !u!114 &7637499387882056786
 MonoBehaviour:
   m_ObjectHideFlags: 0

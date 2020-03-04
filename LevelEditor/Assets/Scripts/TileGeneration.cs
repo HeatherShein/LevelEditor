@@ -12,22 +12,54 @@ public class TerrainType
 
 public class TileGeneration : MonoBehaviour
 {
+    #region Variables
+    [SerializeField]
+    private float mapScale;
 
+    [SerializeField]
+    private float heightMultiplier;
+
+    [SerializeField]
+    private VisualizationMode visualizationMode;
+    #endregion
+
+    #region Height
     [SerializeField]
     private TerrainType[] heightTerrainTypes;
-
-    [SerializeField]
-    private TerrainType[] heatTerrainTypes;
 
     [SerializeField]
     private NoiseMapGeneration.Wave[] heightWaves;
 
     [SerializeField]
+    private AnimationCurve heightCurve;
+    #endregion
+
+    #region Heat
+    [SerializeField]
+    private TerrainType[] heatTerrainTypes;
+
+    [SerializeField]
     private NoiseMapGeneration.Wave[] heatWaves;
 
     [SerializeField]
-    NoiseMapGeneration noiseMapGeneration;
+    private AnimationCurve heatCurve;
+    #endregion
 
+    #region Moisture
+    [SerializeField]
+    private TerrainType[] moistureTerrainTypes;
+
+    [SerializeField]
+    private NoiseMapGeneration.Wave[] moistureWaves;
+
+    [SerializeField]
+    private AnimationCurve moistureCurve;
+    #endregion
+
+    #region Constants
+    [SerializeField]
+    NoiseMapGeneration noiseMapGeneration;
+    
     [SerializeField]
     private MeshRenderer tileRenderer;
 
@@ -36,21 +68,7 @@ public class TileGeneration : MonoBehaviour
 
     [SerializeField]
     private MeshCollider meshCollider;
-
-    [SerializeField]
-    private float mapScale;
-
-    [SerializeField]
-    private float heightMultiplier;
-
-    [SerializeField]
-    private AnimationCurve heightCurve;
-
-    [SerializeField]
-    private AnimationCurve heatCurve;
-
-    [SerializeField]
-    private VisualizationMode visualizationMode;
+    #endregion
 
     public void GenerateTile(float centerVertexZ, float maxDistanceZ)
     {
@@ -59,13 +77,16 @@ public class TileGeneration : MonoBehaviour
         int tileDepth = (int)Mathf.Sqrt(meshVertices.Length);
         int tileWidth = tileDepth;
 
+        #region HeightMap
         // Calculate the offset based on the tile position
         float offsetX = -this.gameObject.transform.position.x;
         float offsetZ = -this.gameObject.transform.position.z;
 
         // Generate a height map using perlin noise
         float[,] heightMap = this.noiseMapGeneration.GeneratePerlinNoiseMap(tileDepth, tileWidth, this.mapScale, offsetX, offsetZ, this.heightWaves);
+        #endregion
 
+        #region HeatMap
         // Calculate vertex offset based on Tile position and the distance between vertices
         Vector3 tileDimensions = this.meshFilter.mesh.bounds.size;
         float distanceBetweenVertices = tileDimensions.z / (float)tileDepth;
@@ -92,12 +113,29 @@ public class TileGeneration : MonoBehaviour
                 heatMap[zIndex, xIndex] += this.heatCurve.Evaluate(heightMap[zIndex, xIndex]) * heightMap[zIndex, xIndex];
             }
         }
+        #endregion
+
+        #region MoistureMap
+        // Generate moisture map using perlin noise
+        float[,] moistureMap = this.noiseMapGeneration.GeneratePerlinNoiseMap(tileDepth, tileWidth, this.mapScale, offsetX, offsetZ, this.moistureWaves);
+        for (int zIndex = 0; zIndex < tileDepth; zIndex++)
+        {
+            for (int xIndex = 0; xIndex < tileWidth; xIndex++)
+            {
+                // Reducing height value from the heat map makes higher region dryer
+                moistureMap[zIndex, xIndex] -= this.moistureCurve.Evaluate(heightMap[zIndex, xIndex]) * heightMap[zIndex, xIndex];
+            }
+        }
+        #endregion
 
         // Build a 2D texture from the height map
         Texture2D heightTexture = BuildTexture(heightMap, this.heightTerrainTypes);
 
         // Build a 2D texture from the heat map
-         Texture2D heatTexture = BuildTexture(heatMap, this.heatTerrainTypes);
+        Texture2D heatTexture = BuildTexture(heatMap, this.heatTerrainTypes);
+
+        // Build a 2D texture from the moisture map
+        Texture2D moistureTexture = BuildTexture(moistureMap, this.moistureTerrainTypes);
 
         switch (this.visualizationMode)
         {
@@ -108,6 +146,9 @@ public class TileGeneration : MonoBehaviour
             // Assign material texture to be the heatTexture
             case VisualizationMode.Heat:
                 this.tileRenderer.material.mainTexture = heatTexture;
+                break;
+            case VisualizationMode.Moisture:
+                this.tileRenderer.material.mainTexture = moistureTexture;
                 break;
         }
         
@@ -191,6 +232,6 @@ public class TileGeneration : MonoBehaviour
 
     enum VisualizationMode
     {
-        Height, Heat
+        Height, Heat, Moisture
     }
 }
