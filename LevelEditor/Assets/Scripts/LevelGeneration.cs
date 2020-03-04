@@ -11,6 +11,9 @@ public class LevelGeneration : MonoBehaviour
     [SerializeField]
     private GameObject tilePrefab;
 
+    [SerializeField]
+    private float centerVertexZ, maxDistanceZ;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,6 +38,8 @@ public class LevelGeneration : MonoBehaviour
                     this.gameObject.transform.position.z + zTileIndex * tileDepth);
                 // Instantiate a new tile
                 GameObject tile = Instantiate(tilePrefab, tilePosition, Quaternion.identity) as GameObject;
+                // Generate tile texture
+                tile.GetComponent<TileGeneration>().GenerateTile(this.centerVertexZ, this.maxDistanceZ);
             }
         }
     }

@@ -106,24 +106,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d471a2d8cf1fe8a48b1cc3ab3b8bf06a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  terrainTypes:
+  heightTerrainTypes:
   - name: Water
-    height: 0.2
-    color: {r: 0, g: 0.6370516, b: 0.9716981, a: 0}
+    threshold: 0.3
+    color: {r: 0.022027409, g: 0.8618916, b: 0.9339623, a: 0}
   - name: Grass
-    height: 0.3
-    color: {r: 0.11747954, g: 0.754717, b: 0.20195828, a: 0}
+    threshold: 0.5
+    color: {r: 0.2169672, g: 0.6226415, b: 0.17915626, a: 0}
   - name: Mountain
-    height: 0.8
-    color: {r: 0.4811321, g: 0.31367365, b: 0.17928979, a: 0}
+    threshold: 0.7
+    color: {r: 0.41509432, g: 0.10377358, b: 0.10377358, a: 0}
   - name: MountainTop
-    height: 1
+    threshold: 1
     color: {r: 1, g: 1, b: 1, a: 0}
-  waves:
-  - seed: 5000
+  heatTerrainTypes:
+  - name: VeryHot
+    threshold: 0.25
+    color: {r: 1, g: 0.0047169924, b: 0.0047169924, a: 0}
+  - name: Hot
+    threshold: 0.5
+    color: {r: 0.96996236, g: 1, b: 0, a: 0}
+  - name: Cold
+    threshold: 0.75
+    color: {r: 0, g: 0.3462386, b: 1, a: 0}
+  - name: VeryCold
+    threshold: 1
+    color: {r: 0, g: 1, b: 0.8844981, a: 0}
+  heightWaves:
+  - seed: 5600
     frequency: 1
     amplitude: 1
-  - seed: 9000
+  - seed: 9500
+    frequency: 0.5
+    amplitude: 2
+  - seed: 6700
+    frequency: 0.25
+    amplitude: 4
+  heatWaves:
+  - seed: 5600
+    frequency: 1
+    amplitude: 1
+  - seed: 9500
     frequency: 0.5
     amplitude: 2
   - seed: 6700
@@ -168,6 +191,40 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  heatCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.097168
+      value: -0.0017699748
+      inSlope: 0.002359801
+      outSlope: 0.002359801
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.12222867
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  visualizationMode: 1
 --- !u!114 &7637499387882056786
 MonoBehaviour:
   m_ObjectHideFlags: 0
