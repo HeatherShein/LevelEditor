@@ -5,6 +5,7 @@ using UnityEngine;
 public class LevelGeneration : MonoBehaviour
 {
 
+    #region Variables
     [SerializeField]
     private int mapWidthInTiles, mapDepthInTiles;
 
@@ -20,6 +21,14 @@ public class LevelGeneration : MonoBehaviour
     [SerializeField]
     private RiverGeneration riverGeneration;
 
+    [SerializeField]
+    private bool containsTrees;
+
+    [SerializeField]
+    private bool containsRivers;
+    #endregion
+
+    #region Classes
     public class LevelData
     {
         private int tileDepthInVertices, tileWidthInVertices;
@@ -69,6 +78,7 @@ public class LevelGeneration : MonoBehaviour
             this.coordinateXIndex = coordinateXIndex;
         }
     }
+    #endregion
 
     // Start is called before the first frame update
     void Start()
@@ -111,17 +121,23 @@ public class LevelGeneration : MonoBehaviour
         }
 
         // Generate trees for the level
-        this.treeGeneration.GenerateTrees(
+        if (this.containsTrees)
+        {
+            this.treeGeneration.GenerateTrees(
             this.mapDepthInTiles * tileDepthInVertices,
             this.mapWidthInTiles * tileWidthInVertices,
             distanceBetweenVertices,
             this.treeGeneration.mapScale,
             levelData);
+        }
 
         // Generate rivers for the level
-        this.riverGeneration.GenerateRivers(
+        if (this.containsRivers)
+        {
+            this.riverGeneration.GenerateRivers(
             this.mapDepthInTiles * tileDepthInVertices,
             this.mapWidthInTiles * tileWidthInVertices,
             levelData);
+        }
     }
 }
