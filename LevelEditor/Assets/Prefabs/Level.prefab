@@ -46,8 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5040b16f7ccbc684282ee5cd9cec7241, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapWidthInTiles: 10
-  mapDepthInTiles: 10
+  mapWidthInTiles: 1
+  mapDepthInTiles: 1
   tilePrefab: {fileID: 7637499387882056785, guid: fa3d76c54b7dd8440b98eb5ad57b9f18,
     type: 3}
   centerVertexZ: 55
