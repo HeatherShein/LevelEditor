@@ -6,6 +6,7 @@ public class LevelGeneration : MonoBehaviour
 {
 
     #region Variables
+
     [SerializeField]
     private int mapWidthInTiles, mapDepthInTiles;
 
@@ -79,6 +80,18 @@ public class LevelGeneration : MonoBehaviour
         }
     }
     #endregion
+
+
+    public void SetContainsRivers(bool val)
+    {
+        containsRivers = val;
+    }
+
+    public void SetSize(int width, int depth)
+    {
+        mapWidthInTiles = width;
+        mapDepthInTiles = depth;
+    }
 
     // Start is called before the first frame update
     void Start()
