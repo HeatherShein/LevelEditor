@@ -277,7 +277,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panSpeed: 30
-  panBorder: 10
+  speedH: 2
+  speedV: 2
   scrollSpeed: 5
   minY: 10
   maxY: 80
@@ -373,6 +374,21 @@ PrefabInstance:
       propertyPath: treePrefab.Array.data[4]
       value: 
       objectReference: {fileID: 100004, guid: d027af1092f6b434090f040565e7e656, type: 3}
+    - target: {fileID: 7709288517414983689, guid: be84376458aadcd458c5d4ba75784412,
+        type: 3}
+      propertyPath: mapScale
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709288517414983689, guid: be84376458aadcd458c5d4ba75784412,
+        type: 3}
+      propertyPath: neighborRadius.Array.data[3]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709288517414983689, guid: be84376458aadcd458c5d4ba75784412,
+        type: 3}
+      propertyPath: neighborRadius.Array.data[4]
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7709288517414983691, guid: be84376458aadcd458c5d4ba75784412,
         type: 3}
       propertyPath: containsTrees
@@ -381,17 +397,27 @@ PrefabInstance:
     - target: {fileID: 7709288517414983691, guid: be84376458aadcd458c5d4ba75784412,
         type: 3}
       propertyPath: containsRivers
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7709288517414983691, guid: be84376458aadcd458c5d4ba75784412,
         type: 3}
       propertyPath: mapWidthInTiles
-      value: 6
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7709288517414983691, guid: be84376458aadcd458c5d4ba75784412,
         type: 3}
       propertyPath: mapDepthInTiles
-      value: 5
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709288517414983691, guid: be84376458aadcd458c5d4ba75784412,
+        type: 3}
+      propertyPath: centerVertexZ
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709288517414983691, guid: be84376458aadcd458c5d4ba75784412,
+        type: 3}
+      propertyPath: maxDistanceZ
+      value: 40
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be84376458aadcd458c5d4ba75784412, type: 3}

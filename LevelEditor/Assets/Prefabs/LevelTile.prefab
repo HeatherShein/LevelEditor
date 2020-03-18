@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapScale: 3
-  heightMultiplier: 13.64
+  heightMultiplier: 12
   visualizationMode: 0
   waterColor: {r: 0.023529414, g: 0.86274517, b: 0.9333334, a: 0}
   heightTerrainTypes:

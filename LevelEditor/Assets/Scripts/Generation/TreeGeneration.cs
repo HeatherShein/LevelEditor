@@ -79,7 +79,7 @@ public class TreeGeneration : MonoBehaviour
                     // If current value is the max, place a tree at this location
                     if (treeValue == maxValue)
                     {
-                        Vector3 treePosition = new Vector3(xIndex, meshVertices[vertexIndex].y, zIndex);
+                        Vector3 treePosition = new Vector3(tileCoordinate.coordinateXIndex, meshVertices[vertexIndex].y, tileCoordinate.coordinateZIndex * distanceBetweenVertices);
                         GameObject tree = Instantiate(this.treePrefab[biome.index], treePosition, Quaternion.identity) as GameObject;
                         tree.transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
                     }

@@ -79,7 +79,7 @@ MonoBehaviour:
   - seed: 8700
     frequency: 4
     amplitude: 4
-  mapScale: 10
+  mapScale: 3
   neighborRadius:
   - 3
   - 3
