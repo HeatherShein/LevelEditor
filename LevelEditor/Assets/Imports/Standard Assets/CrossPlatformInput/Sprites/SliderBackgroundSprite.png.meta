@@ -76,7 +76,11 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
+<<<<<<< Updated upstream
     spriteID: cd7388e1dec25f84c9889b9ebd86dda1
+=======
+    spriteID: 28d7dbc9252520048aefdcc8d4ad7f48
+>>>>>>> Stashed changes
     vertices: []
     indices: 
     edges: []
