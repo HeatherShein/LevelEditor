@@ -16,6 +16,9 @@ public class TileGeneration : MonoBehaviour
 
     [SerializeField]
     private Color waterColor;
+
+    public void setMapScale(float n) { mapScale = n; }
+    public void setWaterColor(Color color) { waterColor = color; }
     #endregion
 
     #region Height
@@ -49,9 +52,7 @@ public class TileGeneration : MonoBehaviour
 
     [SerializeField]
     private AnimationCurve moistureCurve;
-    #endregion
-
-    public void setMapScale(float n) { mapScale = n; }
+    #endregion 
 
     #region Biomes
     [SerializeField]

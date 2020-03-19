@@ -3,23 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEditor;
 
-public class LevelChanger : MonoBehaviour
+public class LevelFader : MonoBehaviour
 {
 
     public Animator animator; 
     public int levelToLoad; // Level that we need to load 
 
     // Parameters of the level
-    private int mapWidthInTiles, mapDepthInTiles;
-    private bool containsTrees, containsRivers;
-    private int numberOfRivers;
-    private float riverThreshold, waterThreshold, grassThreshold, mountainThreshold, snowThreshold;
-    private int treeSize;
-    private float desert, savane, tundra, boreal, tropical;
-    private float mapScale;
-    private float mountainHeight;
-    private Color riverColor, waterColor, grassColor, mountainColor, snowColor;
+    private static int mapWidthInTiles, mapDepthInTiles;
+    private static int treeSize;
+    private static int numberOfRivers;
+
+    private static float riverThreshold, waterThreshold, grassThreshold, mountainThreshold, snowThreshold;
+    private static float desert, savane, tundra, boreal, tropical;
+    private static float mapScale;
+    private static float mountainHeight;
+
+    private static bool containsTrees, containsRivers;
+
+    private static Color riverColor, waterColor, grassColor, mountainColor, snowColor;
+
+    // Input of the menu
+    public InputField mapWidthInTilesIF, mapDepthInTilesIF, numberOfRiversIF, treeSizeIF, waterThresholdIF, grassThresholdIF, mountainThresholdIF, snowThresholdIF;
+    public Toggle containsRiversT, containsTreesT;
+    public Slider riverThresholdS, desertS, savaneS, tundraS, borealS, tropicalS;
+    public Scrollbar mapScaleSB, mountainHeightSB;
+    public FlexibleColorPicker riverColorFCP, waterColorFCP, grassColorFCP, mountainColorFCP, snowColorFCP;
 
     // Generator 
     public LevelGeneration levelGeneration;
@@ -27,9 +38,13 @@ public class LevelChanger : MonoBehaviour
     public TreeGeneration treeGeneration;
     public TileGeneration tileGeneration;
 
+    public PrefabUtility prefab;
+
+
 
     public void FadeToLevel(int levelIndex) // Fading with the fadeOut animation
     {
+        CreateMap();
         levelToLoad = levelIndex;
         animator.SetTrigger("FadeOut");
     }
@@ -39,14 +54,56 @@ public class LevelChanger : MonoBehaviour
         SceneManager.LoadScene(levelToLoad);
     }
 
-    public void createMap()
+    public void CreateMap()
     {
+        try
+        {
+            // int 
+            mapDepthInTiles = int.Parse(mapDepthInTilesIF.text);
+            mapWidthInTiles = int.Parse(mapWidthInTilesIF.text);
+            numberOfRivers = int.Parse(numberOfRiversIF.text);
+            treeSize = int.Parse(treeSizeIF.text);
 
+            // float
+            riverThreshold = riverThresholdS.value;
+            waterThreshold = float.Parse(waterThresholdIF.text);
+            grassThreshold = float.Parse(grassThresholdIF.text);
+            mountainThreshold = float.Parse(mountainThresholdIF.text);
+            snowThreshold = float.Parse(snowThresholdIF.text);
+            desert = desertS.value;
+            savane = savaneS.value;
+            tundra = tundraS.value;
+            boreal = borealS.value;
+            tropical = tropicalS.value;
+            mapScale = mapScaleSB.value;
+            mountainHeight = mountainHeightSB.value;
+
+            // bool
+            containsRivers = containsRiversT.isOn;
+            containsTrees = containsTreesT.isOn;
+
+            // Color
+            riverColor = riverColorFCP.color;
+            waterColor = waterColorFCP.color;
+            grassColor = grassColorFCP.color;
+            mountainColor = mountainColorFCP.color;
+            snowColor = snowColorFCP.color;
+            ; 
+        } catch (System.Exception e)
+        {
+            Debug.Log(e);
+            Debug.Log("Something is empy");
+        }
+        
     }
 
-    public void setParameters() 
+    public void SetParameters() 
     {
+
         // Level
+
+        Debug.Log(containsTrees);
+
         levelGeneration.setTileSize(mapWidthInTiles, mapDepthInTiles);
         levelGeneration.setContainsRivers(containsRivers);
         levelGeneration.setContainsTrees(containsTrees);
@@ -58,6 +115,7 @@ public class LevelChanger : MonoBehaviour
 
         // Tree
         tileGeneration.setMapScale(mapScale);
+        tileGeneration.setWaterColor(waterColor);
 
 
     }
@@ -65,6 +123,10 @@ public class LevelChanger : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (levelToLoad == 1)
+        {
+            SetParameters();
+        }
 
     }
 
