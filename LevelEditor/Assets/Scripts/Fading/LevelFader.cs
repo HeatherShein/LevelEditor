@@ -38,9 +38,6 @@ public class LevelFader : MonoBehaviour
     public TreeGeneration treeGeneration;
     public TileGeneration tileGeneration;
 
-    public PrefabUtility prefab;
-
-
 
     public void FadeToLevel(int levelIndex) // Fading with the fadeOut animation
     {
@@ -88,7 +85,6 @@ public class LevelFader : MonoBehaviour
             grassColor = grassColorFCP.color;
             mountainColor = mountainColorFCP.color;
             snowColor = snowColorFCP.color;
-            ; 
         } catch (System.Exception e)
         {
             Debug.Log(e);
@@ -113,9 +109,12 @@ public class LevelFader : MonoBehaviour
         riverGeneration.setRiverColor(riverColor);
         riverGeneration.setHeightThreshold(riverThreshold);
 
-        // Tree
+        // Tile
         tileGeneration.setMapScale(mapScale);
-        tileGeneration.setWaterColor(waterColor);
+        tileGeneration.setWater(waterColor, waterThreshold);
+        tileGeneration.setGrass(grassColor, grassThreshold);
+        tileGeneration.setMountain(mountainColor, mountainThreshold);
+        tileGeneration.setSnow(snowColor, snowThreshold);
 
 
     }
