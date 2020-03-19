@@ -51,6 +51,8 @@ public class TileGeneration : MonoBehaviour
     private AnimationCurve moistureCurve;
     #endregion
 
+    public void setMapScale(float n) { mapScale = n; }
+
     #region Biomes
     [SerializeField]
     private BiomeRow[] biomes;

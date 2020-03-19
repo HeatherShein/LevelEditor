@@ -80,6 +80,15 @@ public class LevelGeneration : MonoBehaviour
     }
     #endregion
 
+    public void setTileSize(int width, int depth)
+    {
+        mapWidthInTiles = width;
+        mapDepthInTiles = depth;
+    }
+
+    public void setContainsTrees(bool contains) { containsTrees = contains; }
+    public void setContainsRivers(bool contains) { containsRivers = contains; }
+
     // Start is called before the first frame update
     void Start()
     {
