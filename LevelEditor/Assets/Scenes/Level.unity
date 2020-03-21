@@ -389,7 +389,8 @@ PrefabInstance:
         type: 3}
       propertyPath: tileGeneration
       value: 
-      objectReference: {fileID: 7709288517838738080}
+      objectReference: {fileID: 7637499387882056787, guid: fa3d76c54b7dd8440b98eb5ad57b9f18,
+        type: 3}
     - target: {fileID: 5651871922021495813, guid: 5c861566c07e9894a812062735d512dc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -592,7 +593,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 7709288517838738075}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7709288517838738079}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f0e15f24bddfd57438235db4e3824333, type: 3}
@@ -604,7 +605,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 7709288517838738075}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7709288517838738079}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 39463f226d617e54b8a35abfdf723c0d, type: 3}
@@ -616,60 +617,9 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 7709288517838738075}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7709288517838738079}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5040b16f7ccbc684282ee5cd9cec7241, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &7709288517838738079 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7709288517414983700, guid: be84376458aadcd458c5d4ba75784412,
-    type: 3}
-  m_PrefabInstance: {fileID: 7709288517838738075}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &7709288517838738080
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7709288517838738079}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d471a2d8cf1fe8a48b1cc3ab3b8bf06a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mapScale: 0
-  heightMultiplier: 0
-  visualizationMode: 0
-  waterColor: {r: 0, g: 0, b: 0, a: 0}
-  heightTerrainTypes: []
-  heightWaves: []
-  heightCurve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  heatTerrainTypes: []
-  heatWaves: []
-  heatCurve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  moistureTerrainTypes: []
-  moistureWaves: []
-  moistureCurve:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  biomes: []
-  noiseMapGeneration: {fileID: 0}
-  tileRenderer: {fileID: 0}
-  meshFilter: {fileID: 0}
-  meshCollider: {fileID: 0}

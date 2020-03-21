@@ -22,6 +22,8 @@ public class TreeGeneration : MonoBehaviour
     [SerializeField]
     private GameObject[] treePrefab;
 
+    public void SetMapScale(float size) { mapScale = size; }
+
     public void GenerateTrees(int mapDepth, int mapWidth, float mapScale, float distanceBetweenVertices, LevelData levelData)
     {
         // Generate a tree noise using Perlin noise

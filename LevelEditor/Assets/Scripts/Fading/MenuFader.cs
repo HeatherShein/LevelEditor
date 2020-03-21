@@ -23,17 +23,6 @@ public class MenuFader : MonoBehaviour
         animator.SetTrigger("FadeOut");
     }
 
-    public void FadeToMenuLevel()
-    {
-        Debug.Log("fuezikjdfezjodp");
-        FadeToLevel(mainMenuLevel);
-    }
-
-    public void FadeToImportLevel()
-    {
-        FadeToLevel(importMenuLevel);
-    }
-
     public void OnFadeComplete() // Load level after fade
     {
         SceneManager.LoadScene(levelToLoad);

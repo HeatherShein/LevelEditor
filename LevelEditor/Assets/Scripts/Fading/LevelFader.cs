@@ -13,15 +13,14 @@ public class LevelFader : MonoBehaviour
 
     // Parameters of the level
     private static int mapWidthInTiles, mapDepthInTiles;
-    private static int treeSize;
     private static int numberOfRivers;
 
     private static float riverThreshold, waterThreshold, grassThreshold, mountainThreshold, snowThreshold;
     private static float desert, savane, tundra, boreal, tropical;
-    private static float mapScale;
+    private static float mapScale, treeSize;
     private static float mountainHeight;
 
-    private static bool containsTrees, containsRivers = true;
+    private static bool containsTrees, containsRivers;
 
     private static Color riverColor, waterColor, grassColor, mountainColor, snowColor;
 
@@ -89,6 +88,7 @@ public class LevelFader : MonoBehaviour
         {
             Debug.Log(e);
             Debug.Log("Something is empy");
+            SceneManager.LoadScene(1);
         }
         
     }
@@ -97,7 +97,6 @@ public class LevelFader : MonoBehaviour
     {
 
         // Level
-
         levelGeneration.setTileSize(mapWidthInTiles, mapDepthInTiles);
         levelGeneration.setContainsRivers(containsRivers);
         levelGeneration.setContainsTrees(containsTrees);
@@ -106,6 +105,9 @@ public class LevelFader : MonoBehaviour
         riverGeneration.setNbRivers(numberOfRivers);
         riverGeneration.setRiverColor(riverColor);
         riverGeneration.setHeightThreshold(riverThreshold);
+
+        // Tree
+        treeGeneration.SetMapScale(treeSize);
 
         // Tile
         tileGeneration.setMapScale(mapScale);
