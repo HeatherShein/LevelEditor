@@ -21,7 +21,7 @@ public class LevelFader : MonoBehaviour
     private static float mapScale;
     private static float mountainHeight;
 
-    private static bool containsTrees, containsRivers;
+    private static bool containsTrees, containsRivers = true;
 
     private static Color riverColor, waterColor, grassColor, mountainColor, snowColor;
 
@@ -97,8 +97,6 @@ public class LevelFader : MonoBehaviour
     {
 
         // Level
-
-        Debug.Log(containsTrees);
 
         levelGeneration.setTileSize(mapWidthInTiles, mapDepthInTiles);
         levelGeneration.setContainsRivers(containsRivers);
