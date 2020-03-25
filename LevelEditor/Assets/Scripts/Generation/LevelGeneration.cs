@@ -19,10 +19,16 @@ public class LevelGeneration : MonoBehaviour
     private TreeGeneration treeGeneration;
 
     [SerializeField]
+    private RockGeneration rockGeneration;
+
+    [SerializeField]
     private RiverGeneration riverGeneration;
 
     [SerializeField]
     private bool containsTrees;
+
+    [SerializeField]
+    private bool containsRocks;
 
     [SerializeField]
     private bool containsRivers;
@@ -149,6 +155,17 @@ public class LevelGeneration : MonoBehaviour
             this.mapDepthInTiles * tileDepthInVertices,
             this.mapWidthInTiles * tileWidthInVertices,
             this.treeGeneration.mapScale,
+            distanceBetweenVertices,
+            levelData);
+        }
+
+        // Generate rocks for the level
+        if (this.containsRocks)
+        {
+            this.rockGeneration.GenerateRocks(
+            this.mapDepthInTiles * tileDepthInVertices,
+            this.mapWidthInTiles * tileWidthInVertices,
+            this.rockGeneration.mapScale,
             distanceBetweenVertices,
             levelData);
         }
