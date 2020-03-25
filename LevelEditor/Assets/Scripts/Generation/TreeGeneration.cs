@@ -22,13 +22,20 @@ public class TreeGeneration : MonoBehaviour
     [SerializeField]
     private GameObject[] treePrefab;
 
+    [SerializeField]
+    private GameObject treeContainer;
+
+    public void SetMapScale(float size) { mapScale = size; }
+
     public void GenerateTrees(int mapDepth, int mapWidth, float mapScale, float distanceBetweenVertices, LevelData levelData)
     {
         // Generate a tree noise using Perlin noise
         float[,] treeMap = this.noiseMapGeneration.GeneratePerlinNoiseMap(mapDepth, mapWidth, mapScale, 0, 0, this.waves);
 
+        /*
         float mapSizeZ = mapDepth * distanceBetweenVertices;
         float mapSizeX = mapWidth * distanceBetweenVertices;
+        */
         for (int zIndex = 0; zIndex < mapDepth; zIndex++)
         {
             for (int xIndex = 0; xIndex < mapWidth; xIndex++)
@@ -79,9 +86,11 @@ public class TreeGeneration : MonoBehaviour
                     // If current value is the max, place a tree at this location
                     if (treeValue == maxValue)
                     {
-                        Vector3 treePosition = new Vector3(tileCoordinate.coordinateXIndex, meshVertices[vertexIndex].y, tileCoordinate.coordinateZIndex * distanceBetweenVertices);
+                        // Instantiating with an offset of the tile, because trees are meant to be spawned at the center of the tile
+                        Vector3 treePosition = new Vector3(xIndex * distanceBetweenVertices - (tileWidth/2), meshVertices[vertexIndex].y, zIndex * distanceBetweenVertices - (tileWidth/2));
                         GameObject tree = Instantiate(this.treePrefab[biome.index], treePosition, Quaternion.identity) as GameObject;
                         tree.transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
+                        tree.transform.parent = treeContainer.transform; // Clean the project explorer
                     }
                 }
             }

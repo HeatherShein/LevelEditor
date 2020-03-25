@@ -26,6 +26,9 @@ public class LevelGeneration : MonoBehaviour
 
     [SerializeField]
     private bool containsRivers;
+
+    [SerializeField]
+    private GameObject tilesContainer;
     #endregion
 
     #region Classes
@@ -80,6 +83,15 @@ public class LevelGeneration : MonoBehaviour
     }
     #endregion
 
+    public void setTileSize(int width, int depth)
+    {
+        mapWidthInTiles = width;
+        mapDepthInTiles = depth;
+    }
+
+    public void setContainsTrees(bool contains) { containsTrees = contains; }
+    public void setContainsRivers(bool contains) { containsRivers = contains; }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -114,21 +126,11 @@ public class LevelGeneration : MonoBehaviour
                     this.gameObject.transform.position.z + zTileIndex * tileDepth);
                 // Instantiate a new tile
                 GameObject tile = Instantiate(tilePrefab, tilePosition, Quaternion.identity) as GameObject;
+                tile.transform.parent = tilesContainer.transform; // Clean the project explorer
                 // Generate tile texture
                 TileGeneration.TileData tileData = tile.GetComponent<TileGeneration>().GenerateTile(this.centerVertexZ, this.maxDistanceZ);
                 levelData.AddTileData(tileData, zTileIndex, xTileIndex);
             }
-        }
-
-        // Generate trees for the level
-        if (this.containsTrees)
-        {
-            this.treeGeneration.GenerateTrees(
-            this.mapDepthInTiles * tileDepthInVertices,
-            this.mapWidthInTiles * tileWidthInVertices,
-            distanceBetweenVertices,
-            this.treeGeneration.mapScale,
-            levelData);
         }
 
         // Generate rivers for the level
@@ -137,6 +139,17 @@ public class LevelGeneration : MonoBehaviour
             this.riverGeneration.GenerateRivers(
             this.mapDepthInTiles * tileDepthInVertices,
             this.mapWidthInTiles * tileWidthInVertices,
+            levelData);
+        }
+
+        // Generate trees for the level
+        if (this.containsTrees)
+        {
+            this.treeGeneration.GenerateTrees(
+            this.mapDepthInTiles * tileDepthInVertices,
+            this.mapWidthInTiles * tileWidthInVertices,
+            this.treeGeneration.mapScale,
+            distanceBetweenVertices,
             levelData);
         }
     }

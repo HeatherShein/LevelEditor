@@ -16,6 +16,8 @@ public class TileGeneration : MonoBehaviour
 
     [SerializeField]
     private Color waterColor;
+
+    public void setMapScale(float n) { mapScale = n; }
     #endregion
 
     #region Height
@@ -27,6 +29,30 @@ public class TileGeneration : MonoBehaviour
 
     [SerializeField]
     private AnimationCurve heightCurve;
+
+    public void setWater(Color color, float threshold) { 
+        heatTerrainTypes[0].color = color;
+        heatTerrainTypes[0].threshold = threshold;
+    }
+
+    public void setGrass(Color color, float threshold)
+    {
+        heatTerrainTypes[1].color = color;
+        heatTerrainTypes[1].threshold = threshold;
+    }
+
+    public void setMountain(Color color, float threshold)
+    {
+        heatTerrainTypes[2].color = color;
+        heatTerrainTypes[2].threshold = threshold;
+    }
+
+    public void setSnow(Color color, float threshold)
+    {
+        heatTerrainTypes[3].color = color;
+        heatTerrainTypes[3].threshold = threshold;
+    }
+
     #endregion
 
     #region Heat
@@ -49,7 +75,7 @@ public class TileGeneration : MonoBehaviour
 
     [SerializeField]
     private AnimationCurve moistureCurve;
-    #endregion
+    #endregion 
 
     #region Biomes
     [SerializeField]

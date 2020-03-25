@@ -15,6 +15,10 @@ public class RiverGeneration : MonoBehaviour
     [SerializeField]
     private Color riverColor;
 
+    public void setNbRivers(int n) { nbRivers = n; }
+    public void setRiverColor(Color color) { riverColor = color; }
+    public void setHeightThreshold(float n) { heightThreshold = n; }
+
     public void GenerateRivers(int mapDepth, int mapWidth, LevelData levelData)
     {
         for (int riverIndex = 0; riverIndex < nbRivers; riverIndex++)
