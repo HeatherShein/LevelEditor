@@ -26,6 +26,9 @@ public class LevelGeneration : MonoBehaviour
 
     [SerializeField]
     private bool containsRivers;
+
+    [SerializeField]
+    private GameObject tilesContainer;
     #endregion
 
     #region Classes
@@ -123,6 +126,7 @@ public class LevelGeneration : MonoBehaviour
                     this.gameObject.transform.position.z + zTileIndex * tileDepth);
                 // Instantiate a new tile
                 GameObject tile = Instantiate(tilePrefab, tilePosition, Quaternion.identity) as GameObject;
+                tile.transform.parent = tilesContainer.transform; // Clean the project explorer
                 // Generate tile texture
                 TileGeneration.TileData tileData = tile.GetComponent<TileGeneration>().GenerateTile(this.centerVertexZ, this.maxDistanceZ);
                 levelData.AddTileData(tileData, zTileIndex, xTileIndex);
