@@ -477,12 +477,12 @@ PrefabInstance:
     - target: {fileID: 7709288517414983691, guid: be84376458aadcd458c5d4ba75784412,
         type: 3}
       propertyPath: centerVertexZ
-      value: 40
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7709288517414983691, guid: be84376458aadcd458c5d4ba75784412,
         type: 3}
       propertyPath: maxDistanceZ
-      value: 40
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7709288517414983691, guid: be84376458aadcd458c5d4ba75784412,
         type: 3}

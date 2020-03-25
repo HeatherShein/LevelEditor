@@ -133,23 +133,23 @@ public class LevelGeneration : MonoBehaviour
             }
         }
 
-        // Generate trees for the level
-        if (this.containsTrees)
-        {
-            this.treeGeneration.GenerateTrees(
-            this.mapDepthInTiles * tileDepthInVertices,
-            this.mapWidthInTiles * tileWidthInVertices,
-            distanceBetweenVertices,
-            this.treeGeneration.mapScale,
-            levelData);
-        }
-
         // Generate rivers for the level
         if (this.containsRivers)
         {
             this.riverGeneration.GenerateRivers(
             this.mapDepthInTiles * tileDepthInVertices,
             this.mapWidthInTiles * tileWidthInVertices,
+            levelData);
+        }
+
+        // Generate trees for the level
+        if (this.containsTrees)
+        {
+            this.treeGeneration.GenerateTrees(
+            this.mapDepthInTiles * tileDepthInVertices,
+            this.mapWidthInTiles * tileWidthInVertices,
+            this.treeGeneration.mapScale,
+            distanceBetweenVertices,
             levelData);
         }
     }
