@@ -166,7 +166,7 @@ MonoBehaviour:
   - {fileID: 1000011949594382, guid: 75fa8bf3a73ee6b4da0c7a2c6d3db6a1, type: 3}
   - {fileID: 100000, guid: 6013a9231cbf28447817bbf406307ad6, type: 3}
   - {fileID: 100000, guid: d27239c9a7de0f243876d949bb27027b, type: 3}
-  rockHeightOffset: 0
+  rockHeightOffset: -0.0005
   rockContainer: {fileID: 1968437978}
 --- !u!1 &170076733
 GameObject:
@@ -540,6 +540,11 @@ PrefabInstance:
       propertyPath: treeContainer
       value: 
       objectReference: {fileID: 4688119842086107547}
+    - target: {fileID: 7709288517414983689, guid: be84376458aadcd458c5d4ba75784412,
+        type: 3}
+      propertyPath: treeHeightOffset
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7709288517414983691, guid: be84376458aadcd458c5d4ba75784412,
         type: 3}
       propertyPath: containsTrees

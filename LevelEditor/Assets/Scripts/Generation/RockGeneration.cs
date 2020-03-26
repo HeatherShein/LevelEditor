@@ -88,11 +88,40 @@ public class RockGeneration : MonoBehaviour
                         }
                     }
 
+                    // Get a random offset
+                    bool found = false;
+                    int offsetX = 0;
+                    int offsetZ = 0;
+                    TileCoordinate tileCoordinateOffset;
+                    TileData tileDataOffset;
+                    int tileWidthOffset = 0;
+                    Vector3[] meshVerticesOffset = tileData.mesh.vertices;
+                    int vertexIndexOffset = 0;
+                    while (!found)
+                    {
+                        offsetX = Random.Range(0, 10);
+                        offsetZ = Random.Range(0, 10);
+                        if(xIndex + offsetX > 0 && xIndex + offsetX < mapWidth && zIndex + offsetZ > 0 && zIndex + offsetZ < mapDepth)
+                        {
+                            // Suitable offset
+                            found = !found;
+
+                            // Retrieve Tile Data corresponding to this Tile Coordinate System
+                            tileCoordinateOffset = levelData.ConvertToTileCoordinate(zIndex + offsetZ, xIndex + offsetX);
+                            tileDataOffset = levelData.tilesData[tileCoordinateOffset.tileZIndex, tileCoordinateOffset.tileXIndex];
+                            tileWidthOffset = tileDataOffset.heightMap.GetLength(1);
+
+                            // Calculate the mesh vertex index
+                            meshVerticesOffset = tileDataOffset.mesh.vertices;
+                            vertexIndexOffset = tileCoordinateOffset.coordinateZIndex * tileWidthOffset + tileCoordinateOffset.coordinateXIndex;
+                        }
+                    }
+
                     // If current value is the max, place a rock at this location
                     if (rockValue == maxValue)
                     {
                         // Instantiating with an offset of the tile, because rocks are meant to be spawned at the center of the tile
-                        Vector3 rockPosition = new Vector3(xIndex * distanceBetweenVertices - (tileWidth / 2), meshVertices[vertexIndex].y + this.rockHeightOffset, zIndex * distanceBetweenVertices - (tileWidth / 2));
+                        Vector3 rockPosition = new Vector3((xIndex + offsetX) * distanceBetweenVertices - (tileWidthOffset / 2), meshVerticesOffset[vertexIndexOffset].y + this.rockHeightOffset, (zIndex + offsetZ) * distanceBetweenVertices - (tileWidth / 2));
                         GameObject rock = Instantiate(this.rockPrefab[biome.index], rockPosition, Quaternion.identity) as GameObject;
                         rock.transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
                         rock.transform.parent = rockContainer.transform; // Clean the project explorer
