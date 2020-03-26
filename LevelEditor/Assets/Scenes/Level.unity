@@ -112,6 +112,62 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &152342913 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7709288517414983700, guid: be84376458aadcd458c5d4ba75784412,
+    type: 3}
+  m_PrefabInstance: {fileID: 7709288517838738075}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &152342915 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7709288517414983688, guid: be84376458aadcd458c5d4ba75784412,
+    type: 3}
+  m_PrefabInstance: {fileID: 7709288517838738075}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 152342913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a778f341b8adb104eb5b63342ef65238, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &152342919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 152342913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8583b2920f7b46642bfc21e77ee4e4ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  noiseMapGeneration: {fileID: 152342915}
+  waves:
+  - seed: 7800
+    frequency: 1
+    amplitude: 1
+  - seed: 6700
+    frequency: 2
+    amplitude: 2
+  - seed: 8700
+    frequency: 4
+    amplitude: 4
+  mapScale: 3
+  neighborRadius:
+  - 3
+  - 3
+  - 3
+  - 1
+  - 1
+  rockPrefab:
+  - {fileID: 1000012968262300, guid: 30b99e7dc1382e346a7f9789de00de5e, type: 3}
+  - {fileID: 1000010869019282, guid: d7ba4fe833670a140b9b6085652f0e26, type: 3}
+  - {fileID: 1000011949594382, guid: 75fa8bf3a73ee6b4da0c7a2c6d3db6a1, type: 3}
+  - {fileID: 100000, guid: 6013a9231cbf28447817bbf406307ad6, type: 3}
+  - {fileID: 100000, guid: d27239c9a7de0f243876d949bb27027b, type: 3}
+  rockHeightOffset: -0.0005
+  rockContainer: {fileID: 1968437978}
 --- !u!1 &170076733
 GameObject:
   m_ObjectHideFlags: 0
@@ -282,6 +338,36 @@ MonoBehaviour:
   scrollSpeed: 5
   minY: 10
   maxY: 80
+--- !u!1 &1968437978
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1968437979}
+  m_Layer: 0
+  m_Name: RockContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1968437979
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1968437978}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4688119842086107547
 GameObject:
   m_ObjectHideFlags: 0
@@ -454,6 +540,11 @@ PrefabInstance:
       propertyPath: treeContainer
       value: 
       objectReference: {fileID: 4688119842086107547}
+    - target: {fileID: 7709288517414983689, guid: be84376458aadcd458c5d4ba75784412,
+        type: 3}
+      propertyPath: treeHeightOffset
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7709288517414983691, guid: be84376458aadcd458c5d4ba75784412,
         type: 3}
       propertyPath: containsTrees
@@ -462,7 +553,7 @@ PrefabInstance:
     - target: {fileID: 7709288517414983691, guid: be84376458aadcd458c5d4ba75784412,
         type: 3}
       propertyPath: containsRivers
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7709288517414983691, guid: be84376458aadcd458c5d4ba75784412,
         type: 3}
@@ -494,5 +585,15 @@ PrefabInstance:
       propertyPath: treeContainer
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7709288517414983691, guid: be84376458aadcd458c5d4ba75784412,
+        type: 3}
+      propertyPath: containsRocks
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709288517414983691, guid: be84376458aadcd458c5d4ba75784412,
+        type: 3}
+      propertyPath: rockGeneration
+      value: 
+      objectReference: {fileID: 152342919}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be84376458aadcd458c5d4ba75784412, type: 3}

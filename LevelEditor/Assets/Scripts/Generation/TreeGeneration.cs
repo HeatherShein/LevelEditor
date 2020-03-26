@@ -7,6 +7,7 @@ using static LevelGeneration;
 
 public class TreeGeneration : MonoBehaviour
 {
+    #region Variables
     [SerializeField]
     private NoiseMapGeneration noiseMapGeneration;
 
@@ -23,7 +24,11 @@ public class TreeGeneration : MonoBehaviour
     private GameObject[] treePrefab;
 
     [SerializeField]
+    private float treeHeightOffset;
+
+    [SerializeField]
     private GameObject treeContainer;
+    #endregion
 
     public void SetMapScale(float size) { mapScale = size; }
 
@@ -87,7 +92,7 @@ public class TreeGeneration : MonoBehaviour
                     if (treeValue == maxValue)
                     {
                         // Instantiating with an offset of the tile, because trees are meant to be spawned at the center of the tile
-                        Vector3 treePosition = new Vector3(xIndex * distanceBetweenVertices - (tileWidth/2), meshVertices[vertexIndex].y, zIndex * distanceBetweenVertices - (tileWidth/2));
+                        Vector3 treePosition = new Vector3(xIndex * distanceBetweenVertices - (tileWidth/2), meshVertices[vertexIndex].y + this.treeHeightOffset, zIndex * distanceBetweenVertices - (tileWidth/2));
                         GameObject tree = Instantiate(this.treePrefab[biome.index], treePosition, Quaternion.identity) as GameObject;
                         tree.transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
                         tree.transform.parent = treeContainer.transform; // Clean the project explorer
