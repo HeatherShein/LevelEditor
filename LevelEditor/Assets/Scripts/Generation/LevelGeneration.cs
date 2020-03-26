@@ -35,6 +35,9 @@ public class LevelGeneration : MonoBehaviour
 
     [SerializeField]
     private GameObject tilesContainer;
+
+    [SerializeField]
+    private PositionCorrection positionCorrection;
     #endregion
 
     #region Classes
@@ -168,6 +171,12 @@ public class LevelGeneration : MonoBehaviour
             this.rockGeneration.mapScale,
             distanceBetweenVertices,
             levelData);
+        }
+
+        // Field for the main menu
+        if(positionCorrection != null)
+        {
+            positionCorrection.CorrectPosition();
         }
     }
 }
