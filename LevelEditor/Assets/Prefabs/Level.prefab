@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7709288517414983689}
   - component: {fileID: 7709288517414983688}
   - component: {fileID: 7709288517414983695}
+  - component: {fileID: 2487929299229942524}
   m_Layer: 0
   m_Name: Level
   m_TagString: Untagged
@@ -53,9 +54,12 @@ MonoBehaviour:
   centerVertexZ: 55
   maxDistanceZ: 55
   treeGeneration: {fileID: 7709288517414983689}
+  rockGeneration: {fileID: 0}
   riverGeneration: {fileID: 7709288517414983695}
   containsTrees: 1
+  containsRocks: 0
   containsRivers: 1
+  tilesContainer: {fileID: 0}
 --- !u!114 &7709288517414983689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92,6 +96,8 @@ MonoBehaviour:
   - {fileID: 137650, guid: 826b6a0b570e8460990010fa615b5a2a, type: 3}
   - {fileID: 192044, guid: 19682540d8a014522a319b1cf788aee2, type: 3}
   - {fileID: 191266, guid: c44bd9bdc114d4a60932c0087d9d1732, type: 3}
+  treeHeightOffset: 0
+  treeContainer: {fileID: 0}
 --- !u!114 &7709288517414983688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,3 +125,41 @@ MonoBehaviour:
   nbRivers: 10
   heightThreshold: 0.6
   riverColor: {r: 0, g: 1, b: 0.84328103, a: 0}
+--- !u!114 &2487929299229942524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7709288517414983700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8583b2920f7b46642bfc21e77ee4e4ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  noiseMapGeneration: {fileID: 7709288517414983688}
+  waves:
+  - seed: 7800
+    frequency: 1
+    amplitude: 1
+  - seed: 6700
+    frequency: 2
+    amplitude: 2
+  - seed: 8700
+    frequency: 4
+    amplitude: 4
+  mapScale: 3
+  neighborRadius:
+  - 3
+  - 3
+  - 3
+  - 1
+  - 1
+  rockPrefab:
+  - {fileID: 1000012968262300, guid: 30b99e7dc1382e346a7f9789de00de5e, type: 3}
+  - {fileID: 100000, guid: 05e04fedc78047c48af519e94c595e13, type: 3}
+  - {fileID: 1000011949594382, guid: 75fa8bf3a73ee6b4da0c7a2c6d3db6a1, type: 3}
+  - {fileID: 100000, guid: 6013a9231cbf28447817bbf406307ad6, type: 3}
+  - {fileID: 100000, guid: 476d7e24f53ccf641805646d05f61bde, type: 3}
+  rockHeightOffset: 0
+  rockContainer: {fileID: 0}

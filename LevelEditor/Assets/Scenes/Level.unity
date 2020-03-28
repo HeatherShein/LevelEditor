@@ -112,6 +112,18 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &152342914 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2487929299229942524, guid: be84376458aadcd458c5d4ba75784412,
+    type: 3}
+  m_PrefabInstance: {fileID: 7709288517838738075}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8583b2920f7b46642bfc21e77ee4e4ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &170076733
 GameObject:
   m_ObjectHideFlags: 0
@@ -282,6 +294,36 @@ MonoBehaviour:
   scrollSpeed: 5
   minY: 10
   maxY: 80
+--- !u!1 &1968437978
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1968437979}
+  m_Layer: 0
+  m_Name: RockContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1968437979
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1968437978}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4688119842086107547
 GameObject:
   m_ObjectHideFlags: 0
@@ -454,6 +496,11 @@ PrefabInstance:
       propertyPath: treeContainer
       value: 
       objectReference: {fileID: 4688119842086107547}
+    - target: {fileID: 7709288517414983689, guid: be84376458aadcd458c5d4ba75784412,
+        type: 3}
+      propertyPath: treeHeightOffset
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7709288517414983691, guid: be84376458aadcd458c5d4ba75784412,
         type: 3}
       propertyPath: containsTrees
@@ -462,7 +509,7 @@ PrefabInstance:
     - target: {fileID: 7709288517414983691, guid: be84376458aadcd458c5d4ba75784412,
         type: 3}
       propertyPath: containsRivers
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7709288517414983691, guid: be84376458aadcd458c5d4ba75784412,
         type: 3}
@@ -494,5 +541,20 @@ PrefabInstance:
       propertyPath: treeContainer
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7709288517414983691, guid: be84376458aadcd458c5d4ba75784412,
+        type: 3}
+      propertyPath: containsRocks
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709288517414983691, guid: be84376458aadcd458c5d4ba75784412,
+        type: 3}
+      propertyPath: rockGeneration
+      value: 
+      objectReference: {fileID: 152342914}
+    - target: {fileID: 2487929299229942524, guid: be84376458aadcd458c5d4ba75784412,
+        type: 3}
+      propertyPath: rockContainer
+      value: 
+      objectReference: {fileID: 1968437978}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be84376458aadcd458c5d4ba75784412, type: 3}
