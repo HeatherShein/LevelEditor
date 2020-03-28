@@ -164,7 +164,7 @@ public class LevelFader : MonoBehaviour
     void Update()
     {
         //CreateMap();
-        Debug.Log(XTen*XNumber);
+        Debug.Log(containsRivers);
         //Debug.Log(XTen);
     }
 }
