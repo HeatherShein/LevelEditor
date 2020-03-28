@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEditor;
 
+[System.Serializable]
 public class LevelFader : MonoBehaviour
 {
 
@@ -12,24 +13,35 @@ public class LevelFader : MonoBehaviour
     public int levelToLoad; // Level that we need to load 
 
     // Parameters of the level
-    private static int mapWidthInTiles, mapDepthInTiles;
-    private static int numberOfRivers;
+    //General 
+    private static int XTen, XNumber, YTen, YNumber;
+    private static bool containsTrees, containsRivers, containsRocks;
 
-    private static float riverThreshold, waterThreshold, grassThreshold, mountainThreshold, snowThreshold;
-    private static float desert, savane, tundra, boreal, tropical;
-    private static float mapScale, treeSize;
-    private static float mountainHeight;
+    // Environment
+    private static float waterThreshold, grassThreshold, mountainThreshold, snowThreshold;
+    private static float mountainHeight, mapScale;
+    private static Color waterColor, grassColor, mountainColor, snowColor;
 
-    private static bool containsTrees, containsRivers;
+    // River and Forest
+    public static int riverTen, riverNumber, treeSize;
+    private static float treeTropical, treeDesert, treeSavane, treeTundra, treeBoreal, riverTropical, riverDesert, riverSavane, riverTundra, riverBoreal, riverThreshold;
+    private static Color riverColor;
 
-    private static Color riverColor, waterColor, grassColor, mountainColor, snowColor;
 
     // Input of the menu
-    public InputField mapWidthInTilesIF, mapDepthInTilesIF, numberOfRiversIF, treeSizeIF, waterThresholdIF, grassThresholdIF, mountainThresholdIF, snowThresholdIF;
-    public Toggle containsRiversT, containsTreesT;
-    public Slider riverThresholdS, desertS, savaneS, tundraS, borealS, tropicalS;
-    public Scrollbar mapScaleSB, mountainHeightSB;
-    public ColorPicker riverColorFCP, waterColorFCP, grassColorFCP, mountainColorFCP, snowColorFCP;
+    // General 
+    public Dropdown XTenDD, XNumberDD, YTenDD, YNumberDD;
+    public Toggle containsRiversT, containsTreesT, containsRocksT;
+
+    // Environment
+    public Slider mapScaleS, mountainHeightS, waterThresholdS, grassThresholdS, mountainThresholdS, snowThresholdS;
+    public ColorPicker waterColorCP, grassColorCP, mountainColorCP, snowColorCP;
+
+    // River and Forest
+    public ColorPicker riverColorCP;
+    public Dropdown riverTenDD, riverNumberDD, treeSizeDD;
+    public Slider treeTropicalS, treeDesertS, treeSavaneS, treeTundraS, treeBorealS, riverTropicalS, riverDesertS, riverSavaneS, riverTundraS, riverBorealS, riverThresholdS;
+    
 
     // Generator 
     public LevelGeneration levelGeneration;
@@ -52,57 +64,75 @@ public class LevelFader : MonoBehaviour
 
     public void CreateMap()
     {
-        try
-        {
-            // int 
-            mapDepthInTiles = int.Parse(mapDepthInTilesIF.text);
-            mapWidthInTiles = int.Parse(mapWidthInTilesIF.text);
-            numberOfRivers = int.Parse(numberOfRiversIF.text);
-            treeSize = int.Parse(treeSizeIF.text);
-
-            // float
-            riverThreshold = riverThresholdS.value;
-            waterThreshold = float.Parse(waterThresholdIF.text);
-            grassThreshold = float.Parse(grassThresholdIF.text);
-            mountainThreshold = float.Parse(mountainThresholdIF.text);
-            snowThreshold = float.Parse(snowThresholdIF.text);
-            desert = desertS.value;
-            savane = savaneS.value;
-            tundra = tundraS.value;
-            boreal = borealS.value;
-            tropical = tropicalS.value;
-            mapScale = mapScaleSB.value;
-            mountainHeight = mountainHeightSB.value;
-
-            // bool
+        
+            XTen = (int)Mathf.Pow(10f, XTenDD.value);
+            YTen = (int)Mathf.Pow(10f, YTenDD.value);
+            XNumber = XNumberDD.value;
+            YNumber = YNumberDD.value;
             containsRivers = containsRiversT.isOn;
+            containsRocks = containsRocksT.isOn;
             containsTrees = containsTreesT.isOn;
 
-            // Color
-            riverColor = riverColorFCP.GetColor();
-            waterColor = waterColorFCP.GetColor();
-            grassColor = grassColorFCP.GetColor();
-            mountainColor = mountainColorFCP.GetColor();
-            snowColor = snowColorFCP.GetColor();
-        } catch (System.Exception e)
-        {
-            Debug.Log(e);
-            Debug.Log("Something is empy");
-            SceneManager.LoadScene(1);
-        }
-        
+            // Environment
+
+            mapScale = mapScaleS.value;
+            mountainHeight = mountainHeightS.value;
+            waterThreshold = waterThresholdS.value;
+            grassThreshold = grassThresholdS.value;
+            mountainThreshold = mountainThresholdS.value;
+            snowThreshold = snowThresholdS.value;
+            waterColor = waterColorCP.GetColor();
+            grassColor = grassColorCP.GetColor();
+            mountainColor = mountainColorCP.GetColor();
+            snowColor = snowColorCP.GetColor();
+
+            // River and Forest 
+
+            riverColor = riverColorCP.GetColor();
+            riverTen = (int)Mathf.Pow(10f, riverTenDD.value);
+            riverNumber = riverNumberDD.value;
+            treeTropical = treeTropicalS.value;
+            treeDesert = treeDesertS.value;
+            treeTundra = treeTundraS.value;
+            treeBoreal = treeBorealS.value;
+            treeSavane = treeSavaneS.value;
+            riverTropical = riverTropicalS.value;
+            riverDesert = riverDesertS.value;
+            riverSavane = riverSavaneS.value;
+            riverTundra = riverTundraS.value;
+            riverBoreal = riverBorealS.value;
+            riverThreshold = riverThresholdS.value;
+
+            switch (treeSizeDD.value) {
+                case 0:
+                    treeSize = 1;
+                    break;
+                case 1:
+                    treeSize = 2;
+                    break;
+                case 2:
+                    treeSize = 3;
+                    break;
+                default:
+                    treeSize = 1;
+                    break;
+            }
+
+
+
     }
 
     public void SetParameters() 
     {
-
+        
         // Level
-        levelGeneration.setTileSize(mapWidthInTiles, mapDepthInTiles);
+        levelGeneration.setTileSize(XTen*XNumber, YTen*YNumber);
         levelGeneration.setContainsRivers(containsRivers);
         levelGeneration.setContainsTrees(containsTrees);
+        levelGeneration.setContainsRocks(containsRocks);
 
         // River
-        riverGeneration.setNbRivers(numberOfRivers);
+        riverGeneration.setNbRivers(riverTen*riverNumber);
         riverGeneration.setRiverColor(riverColor);
         riverGeneration.setHeightThreshold(riverThreshold);
 
@@ -115,7 +145,7 @@ public class LevelFader : MonoBehaviour
         tileGeneration.setGrass(grassColor, grassThreshold);
         tileGeneration.setMountain(mountainColor, mountainThreshold);
         tileGeneration.setSnow(snowColor, snowThreshold);
-
+        
 
     }
 
@@ -125,6 +155,7 @@ public class LevelFader : MonoBehaviour
         if (levelToLoad == 1)
         {
             SetParameters();
+            levelGeneration.GenerateMap();
         }
 
     }
@@ -132,5 +163,8 @@ public class LevelFader : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //CreateMap();
+        Debug.Log(XTen*XNumber);
+        //Debug.Log(XTen);
     }
 }

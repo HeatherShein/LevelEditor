@@ -100,14 +100,15 @@ public class LevelGeneration : MonoBehaviour
 
     public void setContainsTrees(bool contains) { containsTrees = contains; }
     public void setContainsRivers(bool contains) { containsRivers = contains; }
+    public void setContainsRocks(bool contains) { containsRocks = contains; }
 
     // Start is called before the first frame update
     void Start()
     {
-        GenerateMap();
+        //GenerateMap();
     }
 
-    void GenerateMap()
+    public void GenerateMap()
     {
         // Get the tile dimension the tile prefab
         Vector3 tileSize = tilePrefab.GetComponent<MeshRenderer>().bounds.size;
