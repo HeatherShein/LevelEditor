@@ -7,7 +7,7 @@ using static LevelGeneration;
 
 public class TreeGeneration : MonoBehaviour
 {
-    #region Variables
+
     [SerializeField]
     private NoiseMapGeneration noiseMapGeneration;
 
@@ -28,11 +28,11 @@ public class TreeGeneration : MonoBehaviour
 
     [SerializeField]
     private GameObject treeContainer;
-    #endregion
+
 
     [SerializeField]
     private Vector3 localScale;
-    #endregion
+
 
     public void SetMapScale(float size) { mapScale = size; }
 
