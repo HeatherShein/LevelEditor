@@ -29,7 +29,7 @@ public class LevelFader : MonoBehaviour
     public Toggle containsRiversT, containsTreesT;
     public Slider riverThresholdS, desertS, savaneS, tundraS, borealS, tropicalS;
     public Scrollbar mapScaleSB, mountainHeightSB;
-    public FlexibleColorPicker riverColorFCP, waterColorFCP, grassColorFCP, mountainColorFCP, snowColorFCP;
+    public ColorPicker riverColorFCP, waterColorFCP, grassColorFCP, mountainColorFCP, snowColorFCP;
 
     // Generator 
     public LevelGeneration levelGeneration;
@@ -79,11 +79,11 @@ public class LevelFader : MonoBehaviour
             containsTrees = containsTreesT.isOn;
 
             // Color
-            riverColor = riverColorFCP.color;
-            waterColor = waterColorFCP.color;
-            grassColor = grassColorFCP.color;
-            mountainColor = mountainColorFCP.color;
-            snowColor = snowColorFCP.color;
+            riverColor = riverColorFCP.GetColor();
+            waterColor = waterColorFCP.GetColor();
+            grassColor = grassColorFCP.GetColor();
+            mountainColor = mountainColorFCP.GetColor();
+            snowColor = snowColorFCP.GetColor();
         } catch (System.Exception e)
         {
             Debug.Log(e);

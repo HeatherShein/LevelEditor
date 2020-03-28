@@ -56,6 +56,7 @@ MonoBehaviour:
   riverGeneration: {fileID: 7709288517414983695}
   containsTrees: 1
   containsRivers: 1
+  tilesContainer: {fileID: 0}
 --- !u!114 &7709288517414983689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92,6 +93,8 @@ MonoBehaviour:
   - {fileID: 137650, guid: 826b6a0b570e8460990010fa615b5a2a, type: 3}
   - {fileID: 192044, guid: 19682540d8a014522a319b1cf788aee2, type: 3}
   - {fileID: 191266, guid: c44bd9bdc114d4a60932c0087d9d1732, type: 3}
+  treeContainer: {fileID: 0}
+  localScale: {x: 0.05, y: 0.05, z: 0.05}
 --- !u!114 &7709288517414983688
 MonoBehaviour:
   m_ObjectHideFlags: 0
