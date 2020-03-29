@@ -99,7 +99,6 @@ public class TreeGeneration : MonoBehaviour
                     // If current value is the max, place a tree at this location
                     if (treeValue == maxValue)
                     {
-                        Debug.Log("On passe ici");
                         // Instantiating with an offset of the tile, because trees are meant to be spawned at the center of the tile
                         Vector3 treePosition = new Vector3(xIndex * distanceBetweenVertices - (tileWidth/2), meshVertices[vertexIndex].y + this.treeHeightOffset, zIndex * distanceBetweenVertices - (tileWidth/2));
                         GameObject tree = Instantiate(this.treePrefab[biome.index], treePosition, Quaternion.identity) as GameObject;
