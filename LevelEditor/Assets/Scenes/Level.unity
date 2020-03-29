@@ -145,6 +145,11 @@ PrefabInstance:
       propertyPath: levelToLoad
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1803491600782339237, guid: e1a539a4cb3f2b44dbdaf06ddf2d6266,
+        type: 3}
+      propertyPath: rockGeneration
+      value: 
+      objectReference: {fileID: 152342914}
     - target: {fileID: 1803491600782339239, guid: e1a539a4cb3f2b44dbdaf06ddf2d6266,
         type: 3}
       propertyPath: m_Name

@@ -1,9 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using UnityEditor;
 
 [System.Serializable]
 public class LevelFader : MonoBehaviour
@@ -23,8 +20,9 @@ public class LevelFader : MonoBehaviour
     private static Color waterColor, grassColor, mountainColor, snowColor;
 
     // River and Forest
-    public static int riverTen, riverNumber, treeSize;
-    private static float treeTropical, treeDesert, treeSavane, treeTundra, treeBoreal, riverTropical, riverDesert, riverSavane, riverTundra, riverBoreal, riverThreshold;
+    public static int riverTen, riverNumber;
+    public static Vector3 treeSize, rockSize;
+    private static float treeTropical, treeDesert, treeSavane, treeTundra, treeBoreal, rockTropical, rockDesert, rockSavane, rockTundra, rockBoreal, riverThreshold;
     private static Color riverColor;
 
 
@@ -39,14 +37,16 @@ public class LevelFader : MonoBehaviour
 
     // River and Forest
     public ColorPicker riverColorCP;
-    public Dropdown riverTenDD, riverNumberDD, treeSizeDD;
-    public Slider treeTropicalS, treeDesertS, treeSavaneS, treeTundraS, treeBorealS, riverTropicalS, riverDesertS, riverSavaneS, riverTundraS, riverBorealS, riverThresholdS;
-    
+    public Dropdown riverTenDD, riverNumberDD, treeSizeDD, rockSizeDD;
+    public Slider treeTropicalS, treeDesertS, treeSavaneS, treeTundraS, treeBorealS, rockTropicalS, rockDesertS, rockSavaneS, rockTundraS, rockBorealS, riverThresholdS;
+    public float[] treeNeighbor = new float[5];
+    public float[] rockNeighbor = new float[5];
 
     // Generator 
     public LevelGeneration levelGeneration;
     public RiverGeneration riverGeneration;
     public TreeGeneration treeGeneration;
+    public RockGeneration rockGeneration;
     public TileGeneration tileGeneration;
 
 
@@ -67,8 +67,8 @@ public class LevelFader : MonoBehaviour
         
             XTen = (int)Mathf.Pow(10f, XTenDD.value);
             YTen = (int)Mathf.Pow(10f, YTenDD.value);
-            XNumber = XNumberDD.value;
-            YNumber = YNumberDD.value;
+            XNumber = XNumberDD.value + 1;
+            YNumber = YNumberDD.value + 1;
             containsRivers = containsRiversT.isOn;
             containsRocks = containsRocksT.isOn;
             containsTrees = containsTreesT.isOn;
@@ -91,35 +91,59 @@ public class LevelFader : MonoBehaviour
             riverColor = riverColorCP.GetColor();
             riverTen = (int)Mathf.Pow(10f, riverTenDD.value);
             riverNumber = riverNumberDD.value;
-            treeTropical = treeTropicalS.value;
-            treeDesert = treeDesertS.value;
-            treeTundra = treeTundraS.value;
-            treeBoreal = treeBorealS.value;
-            treeSavane = treeSavaneS.value;
-            riverTropical = riverTropicalS.value;
-            riverDesert = riverDesertS.value;
-            riverSavane = riverSavaneS.value;
-            riverTundra = riverTundraS.value;
-            riverBoreal = riverBorealS.value;
+            treeTropical = Mathf.Ceil(treeTropicalS.value * 10);
+            treeDesert = Mathf.Ceil(treeDesertS.value * 10);
+            treeTundra = Mathf.Ceil(treeTundraS.value * 10);
+            treeBoreal = Mathf.Ceil(treeBorealS.value * 10);
+            treeSavane = Mathf.Ceil(treeSavaneS.value * 10);
+            rockTropical = Mathf.Ceil(rockTropicalS.value * 10);
+            rockDesert = Mathf.Ceil(rockDesertS.value * 10);
+            rockSavane = Mathf.Ceil(rockSavaneS.value * 10);
+            rockTundra = Mathf.Ceil(rockTundraS.value);
+            rockBoreal = Mathf.Ceil(rockBorealS.value * 10);
             riverThreshold = riverThresholdS.value;
 
             switch (treeSizeDD.value) {
                 case 0:
-                    treeSize = 1;
+                    treeSize = new Vector3(0.01f,0.01f,0.01f);
                     break;
                 case 1:
-                    treeSize = 2;
+                    treeSize = new Vector3(0.05f, 0.05f, 0.05f);
                     break;
                 case 2:
-                    treeSize = 3;
+                    treeSize = new Vector3(0.1f, 0.1f, 0.1f);
                     break;
                 default:
-                    treeSize = 1;
+                    treeSize = new Vector3(0.01f, 0.01f, 0.01f);
                     break;
             }
 
+            switch (rockSizeDD.value)
+            {
+                case 0:
+                    rockSize = new Vector3(0.02f, 0.02f, 0.02f);
+                    break;
+                case 1:
+                    rockSize = new Vector3(0.05f, 0.05f, 0.05f);
+                    break;
+                case 2:
+                    rockSize = new Vector3(0.1f, 0.1f, 0.1f);
+                    break;
+                default:
+                    rockSize = new Vector3(0.02f, 0.02f, 0.02f);
+                    break;
+            }      
 
-
+        treeNeighbor[0] = treeDesert;
+        treeNeighbor[1] = treeSavane;
+        treeNeighbor[2] = treeTundra;
+        treeNeighbor[3] = treeBoreal;
+        treeNeighbor[4] = treeTropical;
+        rockNeighbor[0] = rockDesert;
+        rockNeighbor[1] = rockSavane;
+        rockNeighbor[2] = rockTundra;
+        rockNeighbor[3] = rockBoreal;
+        rockNeighbor[4] = rockTropical;
     }
 
     public void SetParameters() 
@@ -137,7 +161,12 @@ public class LevelFader : MonoBehaviour
         riverGeneration.setHeightThreshold(riverThreshold);
 
         // Tree
-        treeGeneration.SetMapScale(treeSize);
+        treeGeneration.SetLocalScale(treeSize);
+        treeGeneration.SetNeighborRadius(treeNeighbor);
+
+        // Rock
+        rockGeneration.SetLocalScale(rockSize);
+        rockGeneration.SetNeighborRadius(rockNeighbor);
 
         // Tile
         tileGeneration.setMapScale(mapScale);
@@ -145,7 +174,7 @@ public class LevelFader : MonoBehaviour
         tileGeneration.setGrass(grassColor, grassThreshold);
         tileGeneration.setMountain(mountainColor, mountainThreshold);
         tileGeneration.setSnow(snowColor, snowThreshold);
-        
+        tileGeneration.setHeight(mountainHeight);
 
     }
 
@@ -158,13 +187,5 @@ public class LevelFader : MonoBehaviour
             levelGeneration.GenerateMap();
         }
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        //CreateMap();
-        Debug.Log(containsRivers);
-        //Debug.Log(XTen);
     }
 }

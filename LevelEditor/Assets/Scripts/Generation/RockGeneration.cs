@@ -28,9 +28,16 @@ public class RockGeneration : MonoBehaviour
 
     [SerializeField]
     private GameObject rockContainer;
+
+    [SerializeField]
+    private Vector3 localScale;
     #endregion
 
-    public void SetMapScale(float size) { mapScale = size; }
+    #region Setters
+    public void SetLocalScale(Vector3 size) { localScale = size; }
+
+    public void SetNeighborRadius(float[] neighbor) { neighborRadius = neighbor; }
+    #endregion
 
     public void GenerateRocks(int mapDepth, int mapWidth, float mapScale, float distanceBetweenVertices, LevelData levelData)
     {

@@ -7,7 +7,7 @@ using static LevelGeneration;
 
 public class TreeGeneration : MonoBehaviour
 {
-
+    #region Variables
     [SerializeField]
     private NoiseMapGeneration noiseMapGeneration;
 
@@ -29,22 +29,20 @@ public class TreeGeneration : MonoBehaviour
     [SerializeField]
     private GameObject treeContainer;
 
-
     [SerializeField]
     private Vector3 localScale;
+    #endregion
 
+    #region Setters
+    public void SetLocalScale(Vector3 size) { localScale = size; }
 
-    public void SetMapScale(float size) { mapScale = size; }
-
+    public void SetNeighborRadius(float[] neighbor) { neighborRadius = neighbor; }
+    #endregion
     public void GenerateTrees(int mapDepth, int mapWidth, float mapScale, float distanceBetweenVertices, LevelData levelData)
     {
         // Generate a tree noise using Perlin noise
         float[,] treeMap = this.noiseMapGeneration.GeneratePerlinNoiseMap(mapDepth, mapWidth, mapScale, 0, 0, this.waves);
 
-        /*
-        float mapSizeZ = mapDepth * distanceBetweenVertices;
-        float mapSizeX = mapWidth * distanceBetweenVertices;
-        */
         for (int zIndex = 0; zIndex < mapDepth; zIndex++)
         {
             for (int xIndex = 0; xIndex < mapWidth; xIndex++)

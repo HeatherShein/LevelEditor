@@ -16,8 +16,36 @@ public class TileGeneration : MonoBehaviour
 
     [SerializeField]
     private Color waterColor;
+    #endregion
 
+    #region Setters
     public void setMapScale(float n) { mapScale = n; }
+
+    public void setWater(Color color, float threshold)
+    {
+        heightTerrainTypes[0].color = color;
+        heightTerrainTypes[0].threshold = threshold;
+    }
+
+    public void setGrass(Color color, float threshold)
+    {
+        heightTerrainTypes[1].color = color;
+        heightTerrainTypes[1].threshold = threshold;
+    }
+
+    public void setMountain(Color color, float threshold)
+    {
+        heightTerrainTypes[2].color = color;
+        heightTerrainTypes[2].threshold = threshold;
+    }
+
+    public void setSnow(Color color, float threshold)
+    {
+        heightTerrainTypes[3].color = color;
+        heightTerrainTypes[3].threshold = threshold;
+    }
+
+    public void setHeight(float height) { heightMultiplier = height; }
     #endregion
 
     #region Height
@@ -29,30 +57,6 @@ public class TileGeneration : MonoBehaviour
 
     [SerializeField]
     private AnimationCurve heightCurve;
-
-    public void setWater(Color color, float threshold) { 
-        heatTerrainTypes[0].color = color;
-        heatTerrainTypes[0].threshold = threshold;
-    }
-
-    public void setGrass(Color color, float threshold)
-    {
-        heatTerrainTypes[1].color = color;
-        heatTerrainTypes[1].threshold = threshold;
-    }
-
-    public void setMountain(Color color, float threshold)
-    {
-        heatTerrainTypes[2].color = color;
-        heatTerrainTypes[2].threshold = threshold;
-    }
-
-    public void setSnow(Color color, float threshold)
-    {
-        heatTerrainTypes[3].color = color;
-        heatTerrainTypes[3].threshold = threshold;
-    }
-
     #endregion
 
     #region Heat

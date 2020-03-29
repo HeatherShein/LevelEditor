@@ -6,6 +6,7 @@ using static LevelGeneration;
 
 public class RiverGeneration : MonoBehaviour
 {
+    #region Variables
     [SerializeField]
     private int nbRivers;
 
@@ -14,10 +15,13 @@ public class RiverGeneration : MonoBehaviour
 
     [SerializeField]
     private Color riverColor;
+    #endregion
 
+    #region Setters
     public void setNbRivers(int n) { nbRivers = n; }
     public void setRiverColor(Color color) { riverColor = color; }
     public void setHeightThreshold(float n) { heightThreshold = n; }
+    #endregion
 
     public void GenerateRivers(int mapDepth, int mapWidth, LevelData levelData)
     {

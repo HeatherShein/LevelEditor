@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5040b16f7ccbc684282ee5cd9cec7241, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  loadStart: 0
   mapWidthInTiles: 1
   mapDepthInTiles: 1
   tilePrefab: {fileID: 7637499387882056785, guid: fa3d76c54b7dd8440b98eb5ad57b9f18,
@@ -60,6 +61,7 @@ MonoBehaviour:
   containsRocks: 0
   containsRivers: 1
   tilesContainer: {fileID: 0}
+  positionCorrection: {fileID: 0}
 --- !u!114 &7709288517414983689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -98,6 +100,7 @@ MonoBehaviour:
   - {fileID: 191266, guid: c44bd9bdc114d4a60932c0087d9d1732, type: 3}
   treeHeightOffset: 0
   treeContainer: {fileID: 0}
+  localScale: {x: 0, y: 0, z: 0}
 --- !u!114 &7709288517414983688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,3 +166,4 @@ MonoBehaviour:
   - {fileID: 100000, guid: 476d7e24f53ccf641805646d05f61bde, type: 3}
   rockHeightOffset: 0
   rockContainer: {fileID: 0}
+  localScale: {x: 0, y: 0, z: 0}

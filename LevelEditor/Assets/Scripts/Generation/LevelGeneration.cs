@@ -7,6 +7,9 @@ public class LevelGeneration : MonoBehaviour
 
     #region Variables
     [SerializeField]
+    private bool loadStart;
+
+    [SerializeField]
     private int mapWidthInTiles, mapDepthInTiles;
 
     [SerializeField]
@@ -105,7 +108,10 @@ public class LevelGeneration : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //GenerateMap();
+        if (loadStart)
+        {
+            GenerateMap();
+        }
     }
 
     public void GenerateMap()
