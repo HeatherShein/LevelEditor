@@ -24,6 +24,8 @@ public class LevelFader : MonoBehaviour
     public static Vector3 treeSize, rockSize;
     private static float treeTropical, treeDesert, treeSavane, treeTundra, treeBoreal, rockTropical, rockDesert, rockSavane, rockTundra, rockBoreal, riverThreshold;
     private static Color riverColor;
+    private static float[] treeNeighbor = new float[5];
+    private static float[] rockNeighbor = new float[5];
 
 
     // Input of the menu
@@ -39,8 +41,6 @@ public class LevelFader : MonoBehaviour
     public ColorPicker riverColorCP;
     public Dropdown riverTenDD, riverNumberDD, treeSizeDD, rockSizeDD;
     public Slider treeTropicalS, treeDesertS, treeSavaneS, treeTundraS, treeBorealS, rockTropicalS, rockDesertS, rockSavaneS, rockTundraS, rockBorealS, riverThresholdS;
-    public float[] treeNeighbor = new float[5];
-    public float[] rockNeighbor = new float[5];
 
     // Generator 
     public LevelGeneration levelGeneration;
@@ -76,7 +76,7 @@ public class LevelFader : MonoBehaviour
             // Environment
 
             mapScale = mapScaleS.value;
-            mountainHeight = mountainHeightS.value;
+            mountainHeight = mountainHeightS.value * 50;
             waterThreshold = waterThresholdS.value;
             grassThreshold = grassThresholdS.value;
             mountainThreshold = mountainThresholdS.value;
