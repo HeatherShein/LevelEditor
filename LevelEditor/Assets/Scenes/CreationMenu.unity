@@ -10907,7 +10907,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "Color of river\t :\t\t\t\t\t\t\t\t\tThreshold river :\n\nNumber of River
-    :\t\t\t\t\t\t\t\t\t  Tree/River size :"
+    :\t\t\t\t\t\t\t\t\t  Tree/Rocks size :"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d62a573c923f5cb47b8ff65261033b90, type: 2}
   m_sharedMaterial: {fileID: 2164040, guid: d62a573c923f5cb47b8ff65261033b90, type: 2}
@@ -10984,11 +10984,11 @@ MonoBehaviour:
     lineCount: 3
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
