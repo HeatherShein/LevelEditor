@@ -52,7 +52,7 @@ public class LevelFader : MonoBehaviour
 
     public void FadeToLevel(int levelIndex) // Fading with the fadeOut animation
     {
-        if (levelIndex == 1)
+        if (levelIndex == 2)
         {
             CreateMap();
         }
@@ -78,7 +78,7 @@ public class LevelFader : MonoBehaviour
 
             // Environment
 
-            mapScale = mapScaleS.value;
+            mapScale = mapScaleS.value / 10;
             mountainHeight = mountainHeightS.value * 50;
             waterThreshold = waterThresholdS.value;
             grassThreshold = grassThresholdS.value;
