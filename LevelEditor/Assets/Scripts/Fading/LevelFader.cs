@@ -52,7 +52,10 @@ public class LevelFader : MonoBehaviour
 
     public void FadeToLevel(int levelIndex) // Fading with the fadeOut animation
     {
-        CreateMap();
+        if (levelIndex == 1)
+        {
+            CreateMap();
+        }
         levelToLoad = levelIndex;
         animator.SetTrigger("FadeOut");
     }
