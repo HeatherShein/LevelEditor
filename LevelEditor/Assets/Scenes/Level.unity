@@ -119,11 +119,47 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1803491600782339237, guid: e1a539a4cb3f2b44dbdaf06ddf2d6266,
+        type: 3}
+      propertyPath: tileGeneration
+      value: 
+      objectReference: {fileID: 7637499387882056787, guid: fa3d76c54b7dd8440b98eb5ad57b9f18,
+        type: 3}
+    - target: {fileID: 1803491600782339237, guid: e1a539a4cb3f2b44dbdaf06ddf2d6266,
+        type: 3}
+      propertyPath: treeGeneration
+      value: 
+      objectReference: {fileID: 7709288517838738077}
+    - target: {fileID: 1803491600782339237, guid: e1a539a4cb3f2b44dbdaf06ddf2d6266,
+        type: 3}
+      propertyPath: riverGeneration
+      value: 
+      objectReference: {fileID: 7709288517838738076}
+    - target: {fileID: 1803491600782339237, guid: e1a539a4cb3f2b44dbdaf06ddf2d6266,
+        type: 3}
+      propertyPath: levelGeneration
+      value: 
+      objectReference: {fileID: 7709288517838738078}
+    - target: {fileID: 1803491600782339237, guid: e1a539a4cb3f2b44dbdaf06ddf2d6266,
+        type: 3}
+      propertyPath: levelToLoad
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1803491600782339237, guid: e1a539a4cb3f2b44dbdaf06ddf2d6266,
+        type: 3}
+      propertyPath: rockGeneration
+      value: 
+      objectReference: {fileID: 152342914}
     - target: {fileID: 1803491600782339239, guid: e1a539a4cb3f2b44dbdaf06ddf2d6266,
         type: 3}
       propertyPath: m_Name
       value: Fader Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 2348831648247032782, guid: e1a539a4cb3f2b44dbdaf06ddf2d6266,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 534669904}
     - target: {fileID: 9114168488278752099, guid: e1a539a4cb3f2b44dbdaf06ddf2d6266,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -179,37 +215,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1803491600782339237, guid: e1a539a4cb3f2b44dbdaf06ddf2d6266,
-        type: 3}
-      propertyPath: tileGeneration
-      value: 
-      objectReference: {fileID: 7637499387882056787, guid: fa3d76c54b7dd8440b98eb5ad57b9f18,
-        type: 3}
-    - target: {fileID: 1803491600782339237, guid: e1a539a4cb3f2b44dbdaf06ddf2d6266,
-        type: 3}
-      propertyPath: treeGeneration
-      value: 
-      objectReference: {fileID: 7709288517838738077}
-    - target: {fileID: 1803491600782339237, guid: e1a539a4cb3f2b44dbdaf06ddf2d6266,
-        type: 3}
-      propertyPath: riverGeneration
-      value: 
-      objectReference: {fileID: 7709288517838738076}
-    - target: {fileID: 1803491600782339237, guid: e1a539a4cb3f2b44dbdaf06ddf2d6266,
-        type: 3}
-      propertyPath: levelGeneration
-      value: 
-      objectReference: {fileID: 7709288517838738078}
-    - target: {fileID: 1803491600782339237, guid: e1a539a4cb3f2b44dbdaf06ddf2d6266,
-        type: 3}
-      propertyPath: levelToLoad
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1803491600782339237, guid: e1a539a4cb3f2b44dbdaf06ddf2d6266,
-        type: 3}
-      propertyPath: rockGeneration
-      value: 
-      objectReference: {fileID: 152342914}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e1a539a4cb3f2b44dbdaf06ddf2d6266, type: 3}
 --- !u!114 &152342914 stripped
@@ -305,7 +310,6 @@ GameObject:
   - component: {fileID: 468821801}
   - component: {fileID: 468821800}
   - component: {fileID: 468821799}
-  - component: {fileID: 468821802}
   m_Layer: 5
   m_Name: TriggerSave
   m_TagString: Untagged
@@ -373,7 +377,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 468821802}
+      - m_Target: {fileID: 7709288517838738078}
         m_MethodName: SaveFiles
         m_Mode: 1
         m_Arguments:
@@ -384,8 +388,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
-      Culture=neutral, PublicKeyToken=null
 --- !u!114 &468821800
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -404,8 +406,6 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   m_Type: 1
   m_PreserveAspect: 0
@@ -423,18 +423,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 468821797}
   m_CullTransparentMesh: 0
---- !u!114 &468821802
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 468821797}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77f079056a824af4b87afcc1f0087b73, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &534669902
 GameObject:
   m_ObjectHideFlags: 0
@@ -702,9 +690,9 @@ Canvas:
   m_GameObject: {fileID: 1720492575}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
+  m_RenderMode: 1
+  m_Camera: {fileID: 534669904}
+  m_PlaneDistance: 1
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -712,7 +700,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 99
   m_TargetDisplay: 0
 --- !u!224 &1720492579
 RectTransform:
@@ -789,8 +777,6 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 14
@@ -910,11 +896,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 7709288517414983700, guid: be84376458aadcd458c5d4ba75784412,
-        type: 3}
-      propertyPath: m_Name
-      value: Level
-      objectReference: {fileID: 0}
     - target: {fileID: 2487929299229942524, guid: be84376458aadcd458c5d4ba75784412,
         type: 3}
       propertyPath: rockContainer
@@ -1079,6 +1060,11 @@ PrefabInstance:
         type: 3}
       propertyPath: loadStart
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709288517414983700, guid: be84376458aadcd458c5d4ba75784412,
+        type: 3}
+      propertyPath: m_Name
+      value: Level
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be84376458aadcd458c5d4ba75784412, type: 3}

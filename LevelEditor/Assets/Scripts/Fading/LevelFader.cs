@@ -188,4 +188,10 @@ public class LevelFader : MonoBehaviour
         }
 
     }
+
+    public void QuitMenu()
+    {
+        Debug.Log("QUIT!!");
+        Application.Quit();
+    }
 }

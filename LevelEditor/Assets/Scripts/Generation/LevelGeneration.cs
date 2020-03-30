@@ -1,6 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelGeneration : MonoBehaviour
 {
@@ -185,5 +188,21 @@ public class LevelGeneration : MonoBehaviour
         {
             positionCorrection.CorrectPosition();
         }
+    }
+
+    public void SaveFiles()
+    {
+        // Method that saves the level and export it on unitypackage format
+        Debug.Log("Not yet implemented");
+        /*
+        Scene scene = SceneManager.CreateScene("ExportScene");
+        SceneManager.MoveGameObjectToScene(tilesContainer.transform.gameObject, scene);
+
+
+        string[] assetPathNames = new string[5] { "Assets/Scenes/Level.unity", "Assets/Scenes/Level.unity.meta", "Assets/Prefabs", "Assets/Scripts", "Assets/Imports/ColorPicker" };
+        
+        // Export them
+        AssetDatabase.ExportPackage(assetPathNames, "H:/Documents/Unity Projects/Saves/Save.unitypackage", ExportPackageOptions.Recurse);
+        */
     }
 }
